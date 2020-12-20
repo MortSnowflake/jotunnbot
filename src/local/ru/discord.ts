@@ -8,6 +8,5 @@ export const discord = {
   playerChannelName: "лист-персонажа",
   helperChannelName: "помощник",
   channelsInfo: "фазы",
-  channelMasterInfo: "мастера",
   masterChannelName: "дневник-мастера",
 };

@@ -53,13 +53,6 @@ export const diceCommands: {
     aliases: ["sendmoves", "sendmove"],
     isHidden: true,
   },
-  createRules: {
-    title: "Create Rules Cathegory",
-    description: "",
-    helpText: "",
-    aliases: ["createrules"],
-    isHidden: true,
-  },
 };
 
 export const dice = {

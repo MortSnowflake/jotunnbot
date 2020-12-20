@@ -69,7 +69,7 @@ Call options: .end .the-end
 
 
 **VOWS**
-Vows are divided into types (1 - Troublesome, 2 - Dangerous, 3 - Formidable, 4 - Extreme, 5 - Epic) depending on how quickly they can be fulfilled and how much experience the character will receive for fulfilling the oath. At the end of the scene, if you have made progress in the oath, advance the progress by clicking on the symbol: healthadd: on the oath meter. To fulfill the oath, click: rolloracle :, more details in # moves-fate
+Vows are divided into types (1 - Troublesome, 2 - Dangerous, 3 - Formidable, 4 - Extreme, 5 - Epic) depending on how quickly they can be fulfilled and how much experience the character will receive for fulfilling the oath. At the end of the scene, if you have made progress in the oath, advance the progress by clicking on the symbol :ptadd: on the oath meter. To fulfill the oath, click: rolloracle :, more details in # moves-fate
 
 
 **Commands**
@@ -102,7 +102,7 @@ Example: ".delve 2 fortress with antiquities"
 Call options: .delve```
 
 
-:stub2:
+:stub:
 
 
 -----------
@@ -133,7 +133,7 @@ action, you cancel the action die and do not use it.
 When you have to mark a momentum, and the momentum are already -6, instead make the move FACE DANGER.
 
 
-:stub2:
+:stub:
 
 ------------
 

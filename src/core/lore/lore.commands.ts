@@ -11,6 +11,8 @@ import {
 import { viewProgTracker, parseProgTracker } from "../tracker/tracker.utils";
 import { helpOne } from "../help/help.commands";
 import { rollArr } from "../oracles/oracles.utils";
+import { bootstrapAssets } from "../asset/asset.commands";
+import { bootstrapMoves } from "../dice/dice.commands";
 
 export const loreCommands: {
   [id: string]: (message: Message, args: string[], storage: Storage) => void;
@@ -21,6 +23,7 @@ export const loreCommands: {
   rerollWithLP,
   addLP,
   master,
+  bootstrap,
 };
 
 async function master(message: Message, args: string[], storage: Storage) {
@@ -110,7 +113,7 @@ async function scene(
       .then((с) =>
         с.send(
           local.scene.sceneRules(
-            с.guild!.getChannelsInfo?.toString()!,
+            с.guild!.getChannelsInfo(local)?.toString()!,
             с.guild!.getChannelByName(local.discord.chronicChannel)?.toString()!
           )
         )
@@ -170,7 +173,7 @@ async function sceneEnd(message: Message, args: string[], storage: Storage) {
         !!m.content &&
         !m.content.startsWith(".") &&
         m.author !== storage.botUser &&
-        !m.content.startsWith("*")
+        (!m.content.startsWith("*") || m.content.startsWith("**"))
     );
 
     const messages = unsortedMessages.sort(
@@ -227,7 +230,7 @@ async function sceneEnd(message: Message, args: string[], storage: Storage) {
   addLoyaltyPoint(await storage.getPlayer(message.author.id), local);
 }
 
-async function lotsOfMessagesGetter(channel: TextChannel, limit = 500) {
+export async function lotsOfMessagesGetter(channel: TextChannel, limit = 500) {
   const sum_messages = [];
   let last_id;
 
@@ -247,4 +250,20 @@ async function lotsOfMessagesGetter(channel: TextChannel, limit = 500) {
   }
 
   return sum_messages;
+}
+
+async function bootstrap(message: Message, args: string[], storage: Storage) {
+  if (!args || !args.length) {
+    return;
+  }
+  const [arg] = args;
+  const { params } = storage.local.separatedCommands.loreCommands.bootstrap;
+
+  if (params.all === arg || params.assets === arg) {
+    await bootstrapAssets(message, args, storage);
+  }
+
+  if (params.all === arg || params.moves === arg) {
+    await bootstrapMoves(message, args, storage);
+  }
 }

@@ -27,7 +27,6 @@ declare module "discord.js" {
     getChronicChannel(local: Local): TextChannel;
     getScenesCathegory(local: Local): CategoryChannel;
     getChannelsInfo(local: Local): TextChannel;
-    getChannelMasterInfo(local: Local): TextChannel;
     getTestChronicChannel(local: Local): TextChannel;
   }
 
@@ -161,12 +160,6 @@ Guild.prototype.getScenesCathegory = function (local: Local) {
 Guild.prototype.getChannelsInfo = function (local: Local) {
   return this.channels.cache.find(
     (c) => c.name == local.discord.channelsInfo
-  ) as TextChannel;
-};
-
-Guild.prototype.getChannelMasterInfo = function (local: Local) {
-  return this.channels.cache.find(
-    (c) => c.name == local.discord.channelMasterInfo
   ) as TextChannel;
 };
 

@@ -96,13 +96,7 @@ export class Storage {
       masterChannel
         .send(loyaltyPointsEmbed(this.local))
         .then((m) => m.pin())
-        .then((m) =>
-          m.channel.send(
-            this.local.master.masterChnlDescription(
-              this.guild.getChannelMasterInfo(this.local).toString()!
-            )
-          )
-        );
+        .then((m) => m.channel.send(this.local.master.masterChnlDescription));
 
       player = await this.createPlayer(
         new Player(userId, hlpChannel, charChannel, masterChannel)

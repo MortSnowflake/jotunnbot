@@ -1,6 +1,7 @@
 import { AssetEnum } from "../../../core/asset/asset.model";
 import { ICommand } from "../../../local";
 import { Asset } from "../..";
+import assets from "./assets.json";
 
 const assetParse: { [id: string]: AssetEnum } = {
   ["COMPANION"]: AssetEnum.Ally,
@@ -62,4 +63,5 @@ export const asset: Asset = {
   assetParse,
   assetType,
   assetChanelName,
+  assets: assets as { [cnl: string]: Partial<Asset>[] },
 };

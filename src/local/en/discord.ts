@@ -4,11 +4,10 @@ export const discord = {
   tableChannel: "table",
   sceneCathegoryName: "SCENES",
   myCathegoryName: "MY CHANNELS",
-  rulesCathegoryName: "HIDDEN",
+  rulesCathegoryName: "RULES",
   channelPrefix: "scene",
   playerChannelName: "char-list",
   helperChannelName: "assistant",
   channelsInfo: "phases",
-  channelMasterInfo: "masters",
   masterChannelName: "master-journal",
 };

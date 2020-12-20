@@ -1,4 +1,4 @@
-import { AssetEnum } from "../../../discord/asset/asset.model";
+import { AssetEnum } from "../../../core/asset/asset.model";
 import { ICommand } from "../..";
 
 export const assetCommands: {

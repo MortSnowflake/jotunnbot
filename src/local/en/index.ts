@@ -33,7 +33,7 @@ const commands: Commands = {
 
 const separatedCommands: SeparatedCommands = {
   characterCommands,
-  masterCommands: loreCommands,
+  loreCommands,
   diceCommands,
   oraclesCommands,
   progTrackerCommands,

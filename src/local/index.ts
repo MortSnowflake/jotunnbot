@@ -101,6 +101,7 @@ export interface Asset {
   assetParse: StringNumberDictionary;
   assetType: NumberStringDictionary;
   assetChanelName: NumberStringDictionary;
+  assets: { [cnl: string]: Partial<Asset>[] };
 }
 
 export interface Scene {
@@ -127,7 +128,6 @@ export interface Discord {
   playerChannelName: string;
   helperChannelName: string;
   channelsInfo: string;
-  channelMasterInfo: string;
   masterChannelName: string;
 }
 
@@ -200,7 +200,7 @@ export interface Master {
   loyaltyPointsAll: string;
   loyaltySpendError: string;
   loyaltySpendSucces: string;
-  masterChnlDescription: (channel: string) => string;
+  masterChnlDescription: string;
 }
 
 export interface Help {

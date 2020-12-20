@@ -1,9 +1,9 @@
 import {
   CharacterWizardStep,
   Character,
-} from "../../discord/character/character.model";
+} from "../../core/character/character.model";
 import { MessageEmbed } from "discord.js";
-import { toArray } from "../../discord/character/character.manager";
+import { getActiveDebilities } from "../../core/character/character.manager";
 import { ICommand } from "..";
 
 const debCommands: {
@@ -291,7 +291,7 @@ export const character = {
       xpMsg += ` ${xp}`;
     }
 
-    let debilities = toArray(char.debilities).map((d) => debRu[d]);
+    let debilities = getActiveDebilities(char.debilities).map((d) => debRu[d]);
     let debMsg = debilities.length
       ? "```diff\nСлабости:\n- " + debilities.join("\n- ") + "```"
       : "";

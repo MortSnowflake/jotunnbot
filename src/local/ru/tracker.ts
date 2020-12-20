@@ -1,7 +1,7 @@
 import {
   ProgTrackerRank,
   ProgTrackerType,
-} from "../../discord/tracker/tracker.model";
+} from "../../core/tracker/tracker.model";
 import { ICommand } from "..";
 
 const progTrackerTypes = {

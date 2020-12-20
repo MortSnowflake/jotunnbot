@@ -42,10 +42,21 @@ export const loreCommands: {
     aliases: ["addlp"],
     isHidden: true,
   },
+  bootstrap: {
+    title: "Fill server content",
+    description: "",
+    helpText: "",
+    aliases: ["bootstrap"],
+    isHidden: true,
+    params: {
+      all: "all",
+      assets: "assets",
+      moves: "moves",
+    },
+  },
 };
 export const master = {
-  masterChnlDescription: (cnl: string) =>
-    `Use this channel to track luck points and store master units (see ${cnl} help for details). A luck point can be used to reroll any die. To do this, send the command \`.lp 6\` or \`.lp 10\`. Luck points are awarded automatically for the work of the master (creating scenes, oracles, using Doom Points, progress tracker, etc.) and manually by the server admin for helping the channel.`,
+  masterChnlDescription: `Use this channel to track luck points and store master units. A luck point can be used to reroll any die. To do this, send the command \`.lp 6\` or \`.lp 10\`. Luck points are awarded automatically for the work of the master (creating scenes, oracles, using Doom Points, progress tracker, etc.) and manually by the server admin for helping the channel.`,
   loyaltyPointsGrantErr: "can't find the user",
   loyaltyPointsGrantSucces: "a luck point added",
   loyaltyPointsTitle: "Luck point",
@@ -72,21 +83,9 @@ export const scene = {
   
 At the beginning of scene, send a link to some English rule and pin it (e.g.: RULE: <somelink>). If you use this rule during the scene, send \`.rule\` it will give you +1 momentum. Feel free to correct player's English. Use \`*italic*\` *for it*.
   
-To describe the scene intro answer some of these questions or *Ask oracle*:
-\`\`\`
-• What is the current position of the characters: calm, risky or extreme?
-• What do the characters see in this location?
-• What is the camera showing in this location?
-• What sounds and/or smells do the characters hear?
-• How do the characters feel in this location?
-• What is the remarkable detail in this location, or a few common details?
-• Who is in this location?
-• Who influences this location, what do we know about him? (open information known to us).
-\`\`\`
+These oracles can help to describe the scene intro: \`.o location questions\`, \`.o location descriptors\`, \`.o location\`.
+
 Use the \`*italicized*\` message for comments to other players. Such messages are not chronicled. To describe dialogs, use character name e.g."Torgan:" or "me:" at the beginning of the message (the bot will replace "me:" by your char name in ${chronicChnl}).
 
-Use ${phasesChnl} and \`.moves\` to play.
-
-Send \`.end\` to end the scene
-    `,
+Use ${phasesChnl} and \`.moves\` to play. Send \`.end\` to end the scene. Send \`.site\` to *Discover a site*.`,
 };

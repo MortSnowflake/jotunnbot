@@ -3,7 +3,7 @@ import {
   Character,
 } from "../../core/character/character.model";
 import { MessageEmbed } from "discord.js";
-import { toArray } from "../../core/character/character.manager";
+import { getActiveDebilities } from "../../core/character/character.manager";
 import { ICommand } from "..";
 
 const debCommands: {
@@ -423,7 +423,7 @@ A game with people or solo looks approximately the same, the rest of the moves c
       xpMsg += ` ${xp}`;
     }
 
-    let debilities = toArray(char.debilities).map((d) => debEN[d]);
+    let debilities = getActiveDebilities(char.debilities).map((d) => debEN[d]);
     let debMsg = debilities.length
       ? "```diff\nDebilities:\n- " + debilities.join("\n- ") + "```"
       : "";
@@ -469,7 +469,9 @@ A game with people or solo looks approximately the same, the rest of the moves c
 
 You can change your character any time. Use \`.name\`, \`.desc\` and \`.attributes\` for that. Your character is created in the ${playerCnl} channel. Use this channel for personal notes of the character. For example, you can describe the character's bonds there. At the beginning of the game, your character has 3 bonds. These are 3 local NPCs who can help you.
 
-Detailed information about the rules here: ${infoCnl}`,
+Detailed information about the rules here: ${infoCnl}
+
+P.S. I strongly recommend you mute RULES category and chronic channel`,
 };
 
 const debEN: { [id: string]: string } = {

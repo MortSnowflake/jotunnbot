@@ -6,9 +6,10 @@ export function burnMomentum(tracker: Tracker, debilities = 0) {
   tracker.max = 10 - debilities;
 }
 
-export const count = (debilities: Debilities) => toArray(debilities).length;
+export const count = (debilities: Debilities) =>
+  getActiveDebilities(debilities).length;
 
-export function toArray(debilities: Debilities): string[] {
+export function getActiveDebilities(debilities: Debilities): string[] {
   const arr: string[] = [];
   for (const key in debilities) {
     //@ts-ignore

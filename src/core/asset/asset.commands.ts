@@ -3,8 +3,10 @@ import { Storage } from "../discord/storage";
 import { Ability, Asset } from "./asset.model";
 import { Tracker } from "../tracker/tracker.model";
 import { TextChannel } from "discord.js";
-import { viewAssetTemplate } from "./asset.utils";
+import { toAsset, viewAssetTemplate } from "./asset.utils";
 import { addLoyaltyPoint } from "../lore/lore.utils";
+import { lotsOfMessagesGetter } from "../lore/lore.commands";
+const fs = require("fs");
 
 export const assetCommands: {
   [id: string]: (message: Message, args: string[], storage: Storage) => void;
@@ -19,7 +21,6 @@ async function addAsset(message: Message, args: string[], storage: Storage) {
     message.channel.send(local.commands.addAsset.helpText);
     return;
   }
-  const player = await storage.getPlayer(message.author.id);
 
   const separator = args.join(" ").includes("|") ? "|" : ";";
 
@@ -52,4 +53,49 @@ async function addAsset(message: Message, args: string[], storage: Storage) {
   viewAssetTemplate(asset, channel, local);
 
   storage.getPlayer(message.author.id).then((p) => addLoyaltyPoint(p, local));
+}
+
+async function harvestAsset(
+  message: Message,
+  args: string[],
+  storage: Storage
+) {
+  const assCnlArr = Object.values(storage.local.asset.assetChanelName);
+  const jsonObj: any = {};
+
+  for await (const assCnl of assCnlArr) {
+    const channel = await message.guild?.getChannelByName(assCnl);
+    const messages = await lotsOfMessagesGetter(channel as TextChannel);
+    jsonObj[assCnl] = messages
+      .filter((m) => m.embeds?.length)
+      .map((m) => toAsset(m.embeds[0], storage.local));
+  }
+
+  const data = JSON.stringify(jsonObj);
+
+  fs.writeFileSync("assets.json", data, (err: any) => {
+    if (err) throw err;
+    console.log("Data written to file");
+  });
+}
+
+export async function bootstrapAssets(
+  message: Message,
+  args: string[],
+  storage: Storage
+) {
+  const { asset } = storage.local;
+  const assCnlArr = Object.values(asset.assetChanelName);
+
+  for await (const assCnl of assCnlArr) {
+    const channel = await message.guild?.getChannelByName(assCnl);
+    const assets = asset.assets[assCnl];
+    await assets?.forEach(async (a: any) => {
+      await viewAssetTemplate(
+        a as Asset,
+        channel as TextChannel,
+        storage.local
+      );
+    });
+  }
 }

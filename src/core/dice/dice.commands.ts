@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
 import { Storage } from "../discord/storage";
 import { rollActionDice, d100, d, rollProgressDice, sum } from "./dice.utils";
 import { TextChannel } from "discord.js";
@@ -20,7 +20,6 @@ export const diceCommands: {
         )
       : undefined,
   allMoves,
-  createRules,
   sendMoveDescriptions: (m, a, s) =>
     sendMoveDescriptions(m.channel as TextChannel, a, s.local),
 };
@@ -84,9 +83,11 @@ async function sendMoveDescriptions(
   }
 }
 
-async function createRules(message: Message, args: string[], storage: Storage) {
-  //create HiddenCathegory
-  // loop with allMoves creation
+export async function bootstrapMoves(
+  message: Message,
+  args: string[],
+  storage: Storage
+) {
   const moveArr = [
     storage.local.adventureMoves[0].type,
     storage.local.relationMoves[0].type,
