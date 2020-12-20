@@ -1,5 +1,4 @@
-import { ICommand } from "../..";
-import { Table } from "../..";
+import { ICommand, Table } from "../..";
 import tables from "./tables.json";
 
 export const oraclesCommands: {

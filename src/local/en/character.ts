@@ -1,10 +1,7 @@
-import {
-  CharacterWizardStep,
-  Character,
-} from "../../core/character/character.model";
 import { MessageEmbed } from "discord.js";
-import { getActiveDebilities } from "../../core/character/character.manager";
 import { ICommand } from "..";
+import { getActiveDebilities } from "../../core/character/character.manager";
+import { Character, CharacterWizardStep } from "../../core/character/character.model";
 
 const debCommands: {
   [id: string]: ICommand;
@@ -156,37 +153,37 @@ export const characterCommands: {
   heart: {
     title: "Action roll + character's **heart**",
     description: "You can add another modifier separated by a space",
-    helpText: "Example `.нрав`",
+    helpText: "Example `.heart`",
     aliases: ["heart", "h"],
   },
   iron: {
     title: "Action roll + character's **iron**",
     description: "You can add another modifier separated by a space",
-    helpText: "Example `.сталь`",
+    helpText: "Example `.iron`",
     aliases: ["iron", "i"],
   },
   shadow: {
     title: "Action roll + character's **shadow**",
     description: "You can add another modifier separated by a space",
-    helpText: "Example `.т 2`",
+    helpText: "Example `.shadow 2`",
     aliases: ["shadow", "s"],
   },
   wits: {
     title: "Action roll + character's **wits**",
     description: "You can add another modifier separated by a space",
-    helpText: "Example `.ум 1`",
+    helpText: "Example `.wits 1`",
     aliases: ["wits", "w"],
   },
   health: {
     title: "Action roll + character's **health**",
     description: "",
-    helpText: "Example `.з`",
+    helpText: "Example `.health`",
     aliases: ["health", "hp"],
   },
   spirit: {
     title: "Action roll + character's **spirit**",
     description: "",
-    helpText: "Example `.дух`",
+    helpText: "Example `.spirit`",
     aliases: ["spirit", "spt"],
   },
   supply: {
@@ -273,9 +270,9 @@ export const character = {
       message: `Welcome to the Iron Lands server. This is where we learn English and play IronSworn. Cooperative TTRPG, where each player from time to time takes on the role of a game master.
 The world of the Iron Lands is a harsh Nordic place. There are few people here, coins are not an entrance, barter instead. There is a tradition on the iron islands: if you want to achieve something strongly, you must swear on iron that you will achieve it, then the gods will smile at you.
 Read other details about the world in the "LORE" section.
-      
+
 Let's create a character for you.
-      
+
 What is your character's name?
 
 Oracle can help you. Send \`.o ironlander names\` or \`.o elf names\` or \`.o other names\` to ask oracle.
@@ -312,7 +309,7 @@ For example:
 
 This vow is part of your character's backstory. It could be a vow taken many years ago, or a reaction to some major recent event. This vow will not be easy to fulfill. It can take months, years, or even decades to see how this vow is fulfilled or abandoned.
 This vow is needed not so much to complete it as to describe the character and background of your character.
-  
+
 Example. You are haunted by your past, you have vowed to see the defeated clan of raiders. However, there are difficulties. The clan is powerful, and you could not hope to defeat it without an army at your back. The clan is also led by your mother. It will take a special courage to face her again.
 The name of the clan: "Red Moon". Their shields are adorned with a blood-red circle.
 For now, this vow is a smoldering vow, a promise that has not yet flared up.
@@ -334,7 +331,7 @@ Oracle can help you. Send \`.o inciting situations\` or \`.o goals\` to ask orac
       message: `Vows are divided into types (1 - Troublesome, 2 - Dangerous, 3 - Formidable, 4 - Extreme, 5 - Epic) depending on how quickly they can be fulfilled and how much experience the character will receive for fulfilling the vow.
 You can add a new vow at any time using the bot commands.
 Examples: \`\`\`.vow 4 Save the Princess \`\`\` \`\`\`.extreme Save the Princess \`\`\`
-      
+
 Let's continue the character creating...
 
 Choose 3 assets in the "ASSETS" channel. To select an asset, click on ~hit~ or on the skill number under the asset. Choose one skill in each asset if not already selected. As soon as you select all three assets and skills, the last instruction with a description of how to play will appear in this channel.`,
@@ -353,8 +350,8 @@ A rough mountain river rustles around its bend. In the distance you can see a ma
 
 We write the description words into the scene channel in a regular font, and if we want to tell the player something in the metagame mode, we use \`*italics*\`. *Italics* do not appear in the chronicle.
 
-To make a player move, you must describe your actions and send the command that best suits your move. All moves can be viewed in the RULES category or by sending the command \`.moves\`. 
-As part of the training, I suggest you use the move *GATHER INFORMATION*. It is usually used to examine the situation. 
+To make a player move, you must describe your actions and send the command that best suits your move. All moves can be viewed in the RULES category or by sending the command \`.moves\`.
+As part of the training, I suggest you use the move *GATHER INFORMATION*. It is usually used to examine the situation.
 
 Send \`.investigate\`
 `,
@@ -438,7 +435,7 @@ A game with people or solo looks approximately the same, the rest of the moves c
       .setColor("#0099ff")
       .setTitle(char.name)
       .setDescription(
-        `${st} 
+        `${st}
   EDGE                  ${char.attributes.edge}              
   HEART             ${char.attributes.heart}               
   IRON                  ${char.attributes.iron}               
@@ -451,9 +448,9 @@ A game with people or solo looks approximately the same, the rest of the moves c
   ${supply}  Supply                 ${char.status.supply.current}
   ${bond}  Bonds                  ${char.bonds.current}
 
-  
+
   ${debMsg}
-  ${xpMsg} 
+  ${xpMsg}
         `
       )
       .setFooter(char.description);
