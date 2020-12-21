@@ -26,4 +26,7 @@ export const emojiArr = [
   "addtwo",
   "addthree",
   "luck",
+  "name",
+  "filled",
+  "empty",
 ];

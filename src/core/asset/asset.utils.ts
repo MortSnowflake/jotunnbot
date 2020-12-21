@@ -11,20 +11,23 @@ export function viewAssetTemplate(
 ) {
   if (!asset.abilities[0].isChecked) {
     return channel
-      .send(toEmbed(asset, local))
+      .sendWithEmoji(toEmbed(asset, local))
       .then((x) => x.reactEmoji("takeone"))
       .then((x) => x.message.reactEmoji("taketwo"))
       .then((x) => x.message.reactEmoji("takethree"));
   }
   return channel
-    .send(toEmbed(asset, local))
+    .sendWithEmoji(toEmbed(asset, local))
     .then((x) => x.reactEmoji("takeasset"));
 }
 
 export const toEmbed = (asset: Asset, local: Local) => {
   const abilities = asset.abilities.reduce(
     (result, item) =>
-      result + (item.isChecked ? "⬤ " : "◯ ") + item.description + "\n\n",
+      result +
+      (item.isChecked ? "~filled~ " : "~empty~ ") +
+      item.description +
+      "\n\n",
     ""
   );
 
@@ -61,7 +64,10 @@ export function toAsset(embed: MessageEmbed, local: Local) {
   const embedArr = embed.description?.split("\n\n").map((i) => i.trim())!;
 
   embedArr.forEach((item) => {
-    if (item.startsWith("⬤")) {
+    if (item.startsWith("<")) {
+      const [state, text] = item.split(">");
+      abilities.push(new Ability(text.trim(), state.includes("filled")));
+    } else if (item.startsWith("⬤")) {
       abilities.push(new Ability(item.substr(1), true));
     } else if (item.startsWith("◯")) {
       abilities.push(new Ability(item.substr(1), false));

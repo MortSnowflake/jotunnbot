@@ -27,6 +27,7 @@ export const assetHandlers: {
   assetsub: subHealth,
   assethp: restoreHealth,
   assetadd: addHealth,
+  name: rename,
 };
 
 async function takeSkill(
@@ -51,7 +52,7 @@ async function takeSkill(
   asset.abilities[skill].isChecked = true;
   storage.updatePlayerAndCharEmbed(player);
 
-  message.edit(toEmbed(asset, storage.local));
+  message.editWithEmoji(toEmbed(asset, storage.local));
   reaction.remove!();
 }
 
@@ -62,7 +63,7 @@ function addHealth(
 ) {
   const asset = toAsset(reaction.message.embeds[0], storage.local);
   add(asset.tracker!);
-  reaction.message.edit(toEmbed(asset, storage.local));
+  reaction.message.editWithEmoji(toEmbed(asset, storage.local));
 }
 
 function subHealth(
@@ -72,7 +73,7 @@ function subHealth(
 ) {
   const asset = toAsset(reaction.message.embeds[0], storage.local);
   sub(asset.tracker!);
-  reaction.message.edit(toEmbed(asset, storage.local));
+  reaction.message.editWithEmoji(toEmbed(asset, storage.local));
 }
 
 function restoreHealth(
@@ -82,7 +83,7 @@ function restoreHealth(
 ) {
   const asset = toAsset(reaction.message.embeds[0], storage.local);
   reset(asset.tracker!);
-  reaction.message.edit(toEmbed(asset, storage.local));
+  reaction.message.editWithEmoji(toEmbed(asset, storage.local));
 }
 
 async function takeAsset(
@@ -113,38 +114,47 @@ async function takeAsset(
     return;
   }
 
-  // if (asset.customFieldName) {
-  //   const filter = (response: Message) => {
-  //     return (
-  //       !!response.content.toLowerCase() &&
-  //       response.author.id !== storage.botUser.id
-  //     );
-  //   };
-
-  //   player.helperChannel
-  //     .send(
-  //       `<@${player.userId}>, ${local.asset.enter} ${asset.customFieldName} ${local.asset.forAsset}: ${asset.name}`
-  //     )
-  //     .then(() => {
-  //       player.helperChannel
-  //         .awaitMessages(filter, {
-  //           max: 1,
-  //           time: 3600000,
-  //           errors: ["time"],
-  //         })
-  //         .then((collected) => {
-  //           asset.customField = collected.last()?.content;
-  //           storage
-  //             .getPlayer(player.userId)
-  //             .then((p) => sendWithButtons(p, asset, neededXp, storage));
-  //         })
-  //         .catch((collected) => {
-  //           player.helperChannel.send(local.asset.withoutAnswer);
-  //         });
-  //     });
-  // }
-
   sendWithButtons(player, asset, neededXp, storage);
+}
+
+async function rename(
+  reaction: IReaction,
+  storage: Storage,
+  user: User | PartialUser
+) {
+  const { local } = storage;
+  const player = await storage.getPlayer(user.id);
+  const asset = toAsset(reaction.message.embeds[0], local);
+
+  const filter = (response: Message) => {
+    return (
+      !!response.content.toLowerCase() &&
+      response.author.id !== storage.botUser.id
+    );
+  };
+
+  reaction.message.channel
+    .send(
+      `<@${player.userId}>, ${local.asset.enter} ${asset.customFieldName} ${local.asset.forAsset}: ${asset.name}`
+    )
+    .then((question) => {
+      reaction.message.channel
+        .awaitMessages(filter, {
+          max: 1,
+          time: 3600000,
+          errors: ["time"],
+        })
+        .then((collected) => {
+          const answer = collected.last();
+          asset.customField = answer?.content;
+          answer?.delete();
+          question?.delete();
+          reaction.message.editWithEmoji(toEmbed(asset, storage.local));
+        })
+        .catch((collected) => {
+          question?.delete();
+        });
+    });
 }
 
 async function forgetAsset(
@@ -202,9 +212,9 @@ function sendWithButtons(
   xp: number,
   storage: Storage
 ) {
-  let lastReact: Promise<Message | MessageReaction> = player.charChannel.send(
-    toEmbed(asset, storage.local)
-  );
+  let lastReact: Promise<
+    Message | MessageReaction
+  > = player.charChannel.sendWithEmoji(toEmbed(asset, storage.local));
 
   if (!asset.abilities[0].isChecked) {
     lastReact = lastReact.then((x) => react(x, "addone"));
@@ -223,6 +233,9 @@ function sendWithButtons(
       .then((x) => react(x, "assetsub"))
       .then((x) => react(x, "assethp"))
       .then((x) => react(x, "assetadd"));
+  }
+  if (asset.customFieldName) {
+    lastReact = lastReact.then((x) => react(x, "name"));
   }
 
   lastReact.then((x) => react(x, "forgetasset"));

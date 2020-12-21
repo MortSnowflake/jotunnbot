@@ -81,7 +81,7 @@ export const scene = {
     "Doom Points are not spent (or you forgot to mark it). Spend doom points on problems for allies or the whole party, but not for your character personally. At the end of the scene, the remaining Doom Points will go off all at once, worsening the situation.",
   sceneRules: (phasesChnl: string, chronicChnl: string) => `
   
-At the beginning of scene, send a link to some English rule and pin it (e.g.: RULE: <somelink>). If you use this rule during the scene, send \`.rule\` it will give you +1 momentum. Feel free to correct player's English. Use \`*italic*\` *for it*.
+At the beginning of a scene, send a link to some English rule and pin it (e.g.: RULE: <somelink>). If you use this rule during the scene, send \`.rule\` it will give you +1 momentum. Feel free to correct player's English. Use \`*italic*\` *for it*.
   
 These oracles can help to describe the scene intro: \`.o location questions\`, \`.o location descriptors\`, \`.o location\`.
 

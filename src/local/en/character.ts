@@ -390,7 +390,7 @@ You smash troll and get initiative.
       step: CharacterWizardStep.FinishBattle,
       message: `The troll is defeated, the hero returned home and eventually completes the oath and gets experience points.
 
-A game with people or solo looks approximately the same, the rest of the moves can be found in the ROLES cathegory`,
+A game with people or solo looks approximately the same, the rest of the moves can be found in the RULES cathegory`,
     },
     {
       step: CharacterWizardStep.Done,

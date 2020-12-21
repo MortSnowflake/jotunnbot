@@ -368,14 +368,14 @@
     "aliases": ["is"],
     "results": {
       "10": "What is the current position of the characters: calm, risky or extreme?",
-      "20": "What objects do the characters see in this location?",
-      "30": "What colors stand out here?",
-      "40": "What is the 'camera' showing in this location?",
-      "50": "What sounds and/or smells do the characters hear?",
+      "20": "What objects or colors do the characters see in this location?",
+      "30": "What is the 'camera' showing in this location?",
+      "40": "What sounds do the characters hear?",
+      "50": "What smells do the characters feel?",
       "60": "How do the characters feel in this location?",
       "70": "What is the remarkable detail in this location, or a few common details?",
-      "80": "Who is in this location?",
-      "90": "Who influences this location, what do we know about him?",
+      "80": "Who is there in this location?",
+      "90": "Who influences this location, what do we know about them?",
       "100": "What emotion does the character feel"
     }
   },
