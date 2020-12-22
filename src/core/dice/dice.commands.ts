@@ -88,6 +88,11 @@ export async function bootstrapMoves(
   args: string[],
   storage: Storage
 ) {
+  const phasesChannel = await message.guild?.getChannelsInfo(storage.local)!;
+  phasesChannel
+    .sendWithEmoji(storage.local.rules.phases[0])
+    .then((m) => m.channel.sendWithEmoji(storage.local.rules.phases[1]));
+
   const moveArr = [
     storage.local.adventureMoves[0].type,
     storage.local.relationMoves[0].type,

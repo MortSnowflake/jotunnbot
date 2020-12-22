@@ -4,7 +4,7 @@ import { PartialUser } from "discord.js";
 import { IReaction } from "..";
 import { spendLoyaltyPoint } from "../lore/lore.utils";
 import { burnMomentum, count } from "../character/character.manager";
-import { moves } from "../../local/en/dice/moves-en";
+import { moves } from "../../local/en/dice/moves";
 import { MessageEmbed } from "discord.js";
 import { Local } from "../../local";
 

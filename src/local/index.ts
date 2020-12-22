@@ -238,6 +238,7 @@ export interface Local {
   delve: Delve;
   master: Master;
   moves: IMove[];
+  rules: { [id: string]: string[] };
   adventureMoves: IMove[];
   battleMoves: IMove[];
   relationMoves: IMove[];

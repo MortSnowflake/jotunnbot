@@ -14,10 +14,11 @@ import {
   aftermathMoves,
   fateMoves,
   delveMoves,
-} from "./dice/moves-en";
+} from "./dice/moves";
 import { dice, diceCommands } from "./dice/dice";
 import { assetCommands, asset } from "./asset/en";
 import { Commands, Local, SeparatedCommands } from "..";
+import { rules } from "./dice/rules";
 
 const commands: Commands = {
   ...helpCommands,
@@ -52,6 +53,7 @@ export const localEn: Local = {
   delve,
   master,
   moves,
+  rules,
   adventureMoves,
   battleMoves,
   relationMoves,
