@@ -1,5 +1,4 @@
-# jotunnbot
-Ironsworn Open-table Bot
+## Jotunnbot - Ironsworn Open-table Bot
 
 # Quick start
 1. Create a server from the template ([click here](https://discord.new/2Z4FsZmG73ub))
