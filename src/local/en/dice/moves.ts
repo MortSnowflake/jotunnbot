@@ -353,7 +353,7 @@ Examples: \`.fray heart 1 Troll\` or \`.fray wits+2 1 Troll\``,
 send \`.strike iron \`. When you have initiative and attack at range, send \`.strike edge \`. When you wield a deadly weapon (such as a sword, axe, spear, or bow), you inflict 2 harm. When you are unarmed, 
 or wield an improvised or simple weapon (such as a shield, stick, club, staff, or rock), you inflict 1 harm. To inflict 1 harm press ~ptadd~ on the enemy tracker.
 
-Read your assets. If some learned asset skill contains adds suitable to the move send move with the adds e.g. \`.strike 1\``,
+Read your assets. If some learned asset skill contains adds suitable to the move send move with the adds e.g. \`.strike iron 1\``,
     results: [
       `On ~miss~~miss~, your attack fails and you must. Your foe has initiative. Pay the Price - ${payPrice}`,
       `On ~hit~~miss~ inflict your harm and lose initiative.`,

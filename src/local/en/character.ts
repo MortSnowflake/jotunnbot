@@ -324,8 +324,8 @@ Oracle can help you. Send \`.o theme\` or \`.o goals\` to ask oracle.  Also you 
       message: `Describe the "Inciting incident"- a momentary vow that gives impetus to the present moment.
 An engaging situation is a problem that arises at the beginning of a story, prompting your character to take action. Everything up to this point is prehistory. An engaging situation is a vow that shows us what the character is actually doing when the game starts.
       
-Example. A mysterious illness struck the chieftain of Sinderdom. The village doctor brewed potions, but they didn't help. The priest prayed, but the gods did not listen. The mystic performed divination, but the shadows did not divulge their secrets.
-The leader, your friend, disappeared. Without help, he/she will definitely die. To help him, you went after the mysterious dragon root, according to rumors it grows in a cave behind the pass. No one goes to that cave because of its denizens...
+Example. A mysterious illness struck the chieftain of Sinderdom. The village doctor brewed potions, but it didn't help. The priest prayed, but the gods did not listen. The mystic performed divination, but the shadows did not divulge their secrets.
+The leader, your friend, disappeared. Without help, they will definitely die. To help them, you went after the mysterious dragon root, according to rumors it grows in a cave behind the pass. No one goes to that cave because of its denizens...
     
 Oracle can help you. Send \`.o inciting situations\` or \`.o goals\` to ask oracle. Also you can use LORE category channels.`,
     },
@@ -345,11 +345,11 @@ Choose 3 assets in the "ASSETS" channel. To select an asset, click on ~hit~ or o
     },
     {
       step: CharacterWizardStep.TrainingIntro,
-      message: `*Imagine that your character's vow takes him to his homeland to reunite with his family. The character is almost there. He only has to cross the bridge.*
+      message: `*Imagine that your character's vow takes them to their homeland to reunite with their family. The character is almost there. He/She only has to cross the bridge.*
 
-*Also Let's imagine that I have created a scene (with the command \`.scene\`). Next, I must describe the location of the scene.*
+*Let's also imagine that I have created a scene (with the command \`.scene\`). Next, I must describe the location of the scene.*
 
-Rough mountain river rustles around the bend. In the distance you can see a massive stone bridge, old, dotted with cracks. There is a troll at the bridge.
+A rough mountain river rustles around its bend. In the distance you can see a massive stone bridge, old, dotted with cracks. There is a troll at the bridge.
 
 We write the description words into the scene channel in a regular font, and if we want to tell the player something in the metagame mode, we use \`*italics*\`. *Italics* do not appear in the chronicle.
 
@@ -363,28 +363,27 @@ Send \`.investigate\`
       step: CharacterWizardStep.Investigate,
       message: `*Success! If you play with other players then ask them to describe the situation. I will describe the situation for you.*
 
-You have heard in the legends that trolls ask for a toll on the bridge, but you have nothing of value with you. So you have to stealthily bypass the troll or outwit. 
-
+You have heard in the legends that trolls ask for a toll on the bridge, but you have nothing of value with you. So you have to stealthily bypass the troll or outwit him. 
+      
 *Send a message with a literary description of your actions and then send another message with the \`.face\` command to make the move FACE DANGER*`,
     },
     {
       step: CharacterWizardStep.FaceDanger,
       message: `*Oops, failure. I will describe what happens.*
       
-The troll becomes aggressive and runs towards you, the ground is cracking under it and you can smell its unpleasant smell.
-      
+The troll becomes aggressive and runs towards you, the ground is cracking under it and you can feel its unpleasant smell.
+            
 *The fight should start. To do this, open \`.fray\` to activate the ENTER THE FRAY move*`,
     },
     {
       step: CharacterWizardStep.Frei,
-      message: `*Let the troll have initiative. For situations when you don't have initiative but want to fight use the move: CLASH. Describe situation, send it and then send \`.clash\`*`,
+      message: `*Let the troll take the initiative. For situations when you don't have initiative but want to fight, use the move: CLASH. Describe the situation, send it and then send \`.clash\`*`,
     },
     {
       step: CharacterWizardStep.Clash,
-      message: `
-You smash troll and get initiative.
+      message: `You smash the troll and take the initiative.
       
-*When you have initiative you can use the move: STRIKE. Describe situation, send it and then send \`.strike\`*
+*When you have initiative you can use the move: STRIKE. Describe the situation, send it and then send \`.strike\`*
 `,
     },
     {
@@ -395,9 +394,9 @@ You smash troll and get initiative.
     },
     {
       step: CharacterWizardStep.FinishBattle,
-      message: `The troll is defeated, the hero returned home and eventually completes the oath and gets experience points.
+      message: `The troll is defeated, the hero returns home and eventually completes the oath and gets experience points.
 
-A game with people or solo looks approximately the same, the rest of the moves can be found in the RULES cathegory`,
+A game with people or solo looks approximately the same, the rest of the moves can be found in the RULES cathegory.`,
     },
     {
       step: CharacterWizardStep.Done,
@@ -475,9 +474,9 @@ A game with people or solo looks approximately the same, the rest of the moves c
   ) => `Join one of the current scenes or create your own (send \`.scene\`). Scene instructions are in the pinned scene message.
 
 You can change your character any time. Use \`.name\`, \`.desc\` and \`.attributes\` for that. Your character is created in the ${playerCnl} channel. Use this channel for personal notes of the character. For example, you can describe the character's bonds there. At the beginning of the game, your character has 3 bonds. These are 3 local NPCs who can help you.
-
+  
 Detailed information about the rules here: ${infoCnl}
-
+  
 P.S. I strongly recommend you mute RULES category and chronic channel`,
 };
 
