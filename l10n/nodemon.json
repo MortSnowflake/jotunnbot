@@ -1,6 +1,0 @@
-{
-    "watch": ["l10n"],
-    "ext": ".ts,.js",
-    "ignore": [],
-    "exec": "ts-node ./l10n/index.ts"
-}

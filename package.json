@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && node build/index.js",
+    "suttung": "nodemon --config ./suttung/nodemon.json",
     "build": "rimraf ./build && tsc",
-    "l10n:dev": "nodemon --config ./l10n/nodemon.json",
-    "start:dev": "nodemon"
+    "start:dev": "nodemon",
+    "suttung:dev": "nodemon --config ./suttung/nodemon.json"
   },
   "keywords": [],
   "author": "",
