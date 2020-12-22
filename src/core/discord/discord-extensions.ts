@@ -16,7 +16,8 @@ declare module "discord.js" {
     createPrivateChannel(
       userId: string,
       name: string,
-      local: Local
+      local: Local,
+      member?: GuildMember
     ): Promise<TextChannel>;
     createPublicChannel(
       name: string,
@@ -84,26 +85,29 @@ Guild.prototype.sendToChannel = function (message: string, channelId: string) {
 Guild.prototype.createPrivateChannel = async function (
   userId: string,
   name: string,
-  local: Local
+  local: Local,
+  member?: GuildMember
 ) {
   const cathegory =
-    (this.channels.cache.find(
-      (c) =>
-        c.name === local.discord.myCathegoryName &&
-        c.type === "category" &&
-        (c as CategoryChannel).children?.size < 36
-    ) as CategoryChannel) ||
-    (await this.channels
-      .create(local.discord.myCathegoryName, {
-        type: "category",
-        permissionOverwrites: [
-          {
-            id: this.id, // shortcut for @everyone role ID
-            deny: "VIEW_CHANNEL",
-          },
-        ],
-      })
-      .then((c) => c.setPosition(0)));
+    !member || member.hasPermission("ADMINISTRATOR")
+      ? undefined
+      : (this.channels.cache.find(
+          (c) =>
+            c.name === local.discord.myCathegoryName &&
+            c.type === "category" &&
+            (c as CategoryChannel).children?.size < 36
+        ) as CategoryChannel) ||
+        (await this.channels
+          .create(local.discord.myCathegoryName, {
+            type: "category",
+            permissionOverwrites: [
+              {
+                id: this.id, // shortcut for @everyone role ID
+                deny: "VIEW_CHANNEL",
+              },
+            ],
+          })
+          .then((c) => c.setPosition(0)));
 
   return this.channels.create(name, {
     type: "text",

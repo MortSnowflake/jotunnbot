@@ -253,6 +253,13 @@ export const cheatCommands: {
     aliases: ["cheats"],
     isHidden: true,
   },
+  getRole: {
+    title: "Get Player Role",
+    description: "",
+    helpText: "Example `.get-role`",
+    aliases: ["get-role"],
+    isHidden: true,
+  },
 };
 
 export const character = {
@@ -349,7 +356,7 @@ We write the description words into the scene channel in a regular font, and if 
 To make a player move, you must describe your actions and send the command that best suits your move. All moves can be viewed in the RULES category or by sending the command \`.moves\`. 
 As part of the training, I suggest you use the move *GATHER INFORMATION*. It is usually used to examine the situation. 
 
-Send \`.investigate\`.
+Send \`.investigate\`
 `,
     },
     {

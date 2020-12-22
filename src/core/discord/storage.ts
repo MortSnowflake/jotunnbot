@@ -7,27 +7,25 @@ import { loyaltyPointsEmbed } from "../lore/lore.utils";
 import { COLORS } from "./discord-colors";
 
 export class Storage {
-  private STORAGE_CHANNEL_NAME = "_storage__btvrbl_";
-  private cache = ""; //TODO: create cache or cashe from msg cashe
+  private STORAGE_CHANNEL_NAME = "_storage_";
   private guild: Guild;
   private storageChannel: TextChannel;
 
   public botUser: ClientUser;
   public local: Local;
 
-  constructor(client: Client, local: Local) {
+  constructor(botUser: ClientUser, local: Local, guild: Guild) {
     this.local = local;
-    this.guild = client.guilds.cache.array()[0];
+    this.guild = guild;
+    this.botUser = botUser;
 
     this.storageChannel = this.guild.getChannelByName(
       this.STORAGE_CHANNEL_NAME
     ) as TextChannel;
 
-    this.botUser = client.user!;
-
     if (!this.storageChannel) {
       this.guild
-        .createPrivateChannel(client.user!.id, this.STORAGE_CHANNEL_NAME, local)
+        .createPrivateChannel(botUser.id, this.STORAGE_CHANNEL_NAME, local)
         .then((c) => {
           this.storageChannel = c;
         });
@@ -41,7 +39,7 @@ export class Storage {
     this.guild.member(userId)?.setNickname(name);
   }
 
-  public addPlayerRole(userId: string) {
+  public async addPlayerRole(userId: string, local: Local) {
     const playerRole = this.guild.roles.cache.find(
       (r) => r.color === COLORS.GREEN
     );
@@ -78,19 +76,22 @@ export class Storage {
       const hlpChannel = await this.guild.createPrivateChannel(
         userId,
         this.local.discord.helperChannelName,
-        this.local
+        this.local,
+        this.guild.member(userId)!
       );
 
       const charChannel = await this.guild.createPrivateChannel(
         userId,
         this.local.discord.playerChannelName,
-        this.local
+        this.local,
+        this.guild.member(userId)!
       );
 
       const masterChannel = await this.guild.createPrivateChannel(
         userId,
         this.local.discord.masterChannelName,
-        this.local
+        this.local,
+        this.guild.member(userId)!
       );
 
       masterChannel
@@ -156,7 +157,8 @@ export class Storage {
     player.charChannel = await this.guild.createPrivateChannel(
       player.userId,
       this.local.discord.playerChannelName,
-      this.local
+      this.local,
+      this.guild.member(player.userId)!
     );
     player.character = new Character();
     player.characterWizardStep = CharacterWizardStep.Name;

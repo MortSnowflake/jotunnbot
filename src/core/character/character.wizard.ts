@@ -108,7 +108,7 @@ export function setAssets(channel: Channel, player: Player, storage: Storage) {
   player.characterWizardStep++;
   storage.updatePlayer(player);
   storage.renameUserNick(player.userId, player.character.name);
-  storage.addPlayerRole(player.userId);
+  storage.addPlayerRole(player.userId, storage.local);
   sendStep(player.characterWizardStep, channel, storage);
 }
 

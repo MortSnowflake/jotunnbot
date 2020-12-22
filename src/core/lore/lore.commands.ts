@@ -253,9 +253,14 @@ export async function lotsOfMessagesGetter(channel: TextChannel, limit = 500) {
 }
 
 async function bootstrap(message: Message, args: string[], storage: Storage) {
-  if (!args || !args.length) {
+  if (
+    !args ||
+    !args.length ||
+    !message.member!.hasPermission("ADMINISTRATOR")
+  ) {
     return;
   }
+
   const [arg] = args;
   const { params } = storage.local.separatedCommands.loreCommands.bootstrap;
 

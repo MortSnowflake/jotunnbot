@@ -6,6 +6,7 @@ export const cheatCommands: {
 } = {
   addXp,
   cheats,
+  getRole,
 };
 
 async function addXp(message: Message, args: string[], storage: Storage) {
@@ -28,4 +29,19 @@ async function cheats(message: Message, args: string[], storage: Storage) {
     }
   }
   message.channel.send(answer + "`");
+}
+
+async function getRole(message: Message, args: string[], storage: Storage) {
+  const player = await storage.getPlayer(message.author.id);
+  try {
+    storage.addPlayerRole(player.userId, storage.local);
+    message.channel.send(
+      storage.local.character.firstSteps(
+        player.charChannel.toString(),
+        message.guild?.getChannelsInfo(storage.local).toString()!
+      )
+    );
+  } catch {
+    message.channel.send(storage.local.help.playerRoleErrorAgain);
+  }
 }

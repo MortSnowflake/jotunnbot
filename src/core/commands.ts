@@ -38,7 +38,13 @@ export function onCommand(
 
     if (
       command &&
-      !["start", "remove", "oracleLookupTable"].includes(command) &&
+      ![
+        "bootstrap",
+        "start",
+        "remove",
+        "oracleLookupTable",
+        "getRole",
+      ].includes(command) &&
       !message.guild
         .member(message.author)
         ?.roles.cache.array()

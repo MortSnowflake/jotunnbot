@@ -206,6 +206,7 @@ export interface Master {
 export interface Help {
   aliases: string;
   playerRoleError: string;
+  playerRoleErrorAgain: string;
   commands: string;
   upAliases: string;
 }

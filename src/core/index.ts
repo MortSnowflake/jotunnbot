@@ -12,12 +12,10 @@ const ws = require("ws");
 
 export function jotunnbot(token: string, local: Local, cmdPrefix = ".") {
   const app = new Client();
-  let storage: Storage;
 
   app.on(C.Events.CLIENT_READY, () => {
     console.log("Connected as " + app.user?.tag);
     app.user?.setActivity("v 0.04", { type: undefined });
-    storage = new Storage(app, local);
   });
 
   app.on(C.Events.ERROR, (error: any) => {
@@ -33,14 +31,14 @@ export function jotunnbot(token: string, local: Local, cmdPrefix = ".") {
     if (member.id === app.user?.id) {
       return;
     }
-    start(member.id, storage);
+    start(member.id, new Storage(app.user!, local, member.guild));
   });
 
   app.on(C.Events.GUILD_MEMBER_REMOVE, (member) => {
     if (member.id === app.user?.id) {
       return;
     }
-    quit(member.id, storage);
+    quit(member.id, new Storage(app.user!, local, member.guild));
   });
 
   app.on(C.Events.MESSAGE_CREATE, (message) => {
@@ -48,7 +46,11 @@ export function jotunnbot(token: string, local: Local, cmdPrefix = ".") {
       return;
     }
 
-    onCommand(message, storage, cmdPrefix);
+    onCommand(
+      message,
+      new Storage(app.user!, local, message.guild!),
+      cmdPrefix
+    );
   });
 
   app.on(C.Events.RAW as any, (packet: any) => {
@@ -77,7 +79,7 @@ export function jotunnbot(token: string, local: Local, cmdPrefix = ".") {
         reaction,
         app.users.cache.get(packet.d.user_id) ||
           ({ id: packet.d.user_id } as User),
-        storage,
+        new Storage(app.user!, local, message.guild),
         buttonHandlers
       );
     });
