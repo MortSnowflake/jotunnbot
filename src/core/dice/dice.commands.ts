@@ -83,15 +83,69 @@ async function sendMoveDescriptions(
   }
 }
 
+export async function bootstrapRules(
+  message: Message,
+  args: string[],
+  storage: Storage
+) {
+  /*const rule = storage.local.rules[0];
+  const channel = (await message.guild?.getChannelByName(
+    rule.channel
+  )) as TextChannel;
+  await channel.bulkDelete(100);
+  await rule.messages.forEach(
+    async (m) => await channel.sendWithChannelAndEmoji(m)
+  );*/
+
+  for await (const rule of storage.local.rules) {
+    const channel = (await message.guild?.getChannelByName(
+      rule.channel
+    )) as TextChannel;
+    await channel.bulkDelete(100);
+    await rule.messages.forEach(
+      async (m) => await channel.sendWithChannelAndEmoji(m)
+    );
+  }
+}
+
 export async function bootstrapMoves(
   message: Message,
   args: string[],
   storage: Storage
 ) {
-  const phasesChannel = await message.guild?.getChannelsInfo(storage.local)!;
-  phasesChannel
-    .sendWithEmoji(storage.local.rules.phases[0])
-    .then((m) => m.channel.sendWithEmoji(storage.local.rules.phases[1]));
+  const moveArr = [
+    storage.local.adventureMoves[0].type,
+    storage.local.relationMoves[0].type,
+    storage.local.battleMoves[0].type,
+    storage.local.aftermathMoves[0].type,
+    storage.local.fateMoves[0].type,
+    storage.local.delveMoves[0].type,
+  ];
+
+  for await (const move of moveArr) {
+    const channel = (await message.guild?.getChannelByName(
+      move.toLowerCase().split(" ").join("-")
+    )) as TextChannel;
+    await channel.bulkDelete(100);
+    await sendMoveDescriptions(
+      channel as TextChannel,
+      move.split(" "),
+      storage.local
+    );
+  }
+}
+
+export async function createRulesChannels(
+  message: Message,
+  args: string[],
+  storage: Storage
+) {
+  for await (const rule of storage.local.rules) {
+    await message.guild?.createPublicChannel(
+      rule.channel,
+      storage.local.discord.rulesCathegoryName
+    );
+  }
 
   const moveArr = [
     storage.local.adventureMoves[0].type,
@@ -103,15 +157,9 @@ export async function bootstrapMoves(
   ];
 
   for await (const move of moveArr) {
-    const channel = await message.guild?.createPublicChannel(
+    await message.guild?.createPublicChannel(
       move,
-      storage.local.discord.rulesCathegoryName,
-      storage.local
-    );
-    await sendMoveDescriptions(
-      channel as TextChannel,
-      move.split(" "),
-      storage.local
+      storage.local.discord.rulesCathegoryName
     );
   }
 }

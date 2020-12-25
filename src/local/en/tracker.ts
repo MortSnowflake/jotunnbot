@@ -69,6 +69,7 @@ export const progTracker = {
   abandonMsg:
     "You renounced your vow. Get stress. If the vow has been made to a person or community with whom you have a bond, Test your bond the next time you meet.",
   doneMsg: "complete the vow",
+  privateDoneMsg: "You complete the vow",
   suffix,
   rankParse,
   ranks,

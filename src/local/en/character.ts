@@ -295,11 +295,11 @@ Oracle can help you. Send \`.o npc descriptors\` or \`.o npc role\` or to ask or
     {
       step: CharacterWizardStep.Attr,
       message: `Your character has the following attributes:
-**Edge**: quickness, dexterity, skill in handling ranged weapons.
-**Heart**: courage, willpower, empathy, luck, ability to communicate.
-**Iron**: physical strength and stamina, aggressiveness, melee skill.
-**Shadow**: stealth, cunning, deception.
-**Wits**: experience, knowledge, expertise, observation.
+**Edge**: Quickness, agility, and prowess in ranged combat.
+**Heart**: Courage, willpower, empathy, sociability, and loyalty.
+**Iron**: Physical strength, endurance, aggressiveness, and prowess in close combat.
+**Shadow**: Sneakiness, deceptiveness, and cunning.
+**Wits**: Expertise, knowledge, and observation.
 
 Distribute values 3 2 2 1 1 separated by a space between the attributes (edge, heart, iron, shadow, wits). For example, if you have wits 3 and iron 1, you are clever, but not very strong, etc.
 

@@ -12,7 +12,11 @@ import { viewProgTracker, parseProgTracker } from "../tracker/tracker.utils";
 import { helpOne } from "../help/help.commands";
 import { rollArr } from "../oracles/oracles.utils";
 import { bootstrapAssets } from "../asset/asset.commands";
-import { bootstrapMoves } from "../dice/dice.commands";
+import {
+  bootstrapMoves,
+  bootstrapRules,
+  createRulesChannels,
+} from "../dice/dice.commands";
 
 export const loreCommands: {
   [id: string]: (message: Message, args: string[], storage: Storage) => void;
@@ -166,7 +170,7 @@ async function sceneEnd(message: Message, args: string[], storage: Storage) {
       : message?.guild?.getChronicChannel(local)!;
 
   if (!channel.name.startsWith(local.delve.denizenCnlPref)) {
-    const rawMessages = await lotsOfMessagesGetter(channel);
+    const rawMessages = await message.channel.getMessageBunch();
 
     const unsortedMessages = rawMessages.filter(
       (m) =>
@@ -217,7 +221,15 @@ async function sceneEnd(message: Message, args: string[], storage: Storage) {
 
     if (!args.length) {
       players.forEach((p) => {
-        p.helperChannel.send(local.scene.endOfSceneAdvice(sceneName));
+        p.helperChannel.send(
+          `${local.scene.endOfSceneAdvice(
+            sceneName
+          )}. ${local.scene.worldIsChanging(
+            message.guild
+              ?.getChannelByName(local.discord.worldIsChanging)
+              ?.toString()!
+          )}`
+        );
         p.character.xp++;
         storage.updatePlayerAndCharEmbed(p);
       });
@@ -228,28 +240,6 @@ async function sceneEnd(message: Message, args: string[], storage: Storage) {
   }
 
   addLoyaltyPoint(await storage.getPlayer(message.author.id), local);
-}
-
-export async function lotsOfMessagesGetter(channel: TextChannel, limit = 500) {
-  const sum_messages = [];
-  let last_id;
-
-  while (true) {
-    const options = { limit: 100 };
-    if (last_id) {
-      (options as any).before = last_id;
-    }
-
-    const messages = await channel.messages.fetch(options);
-    sum_messages.push(...messages.array());
-    last_id = messages?.last()?.id;
-
-    if (messages.size != 100 || sum_messages.length >= limit) {
-      break;
-    }
-  }
-
-  return sum_messages;
 }
 
 async function bootstrap(message: Message, args: string[], storage: Storage) {
@@ -268,7 +258,15 @@ async function bootstrap(message: Message, args: string[], storage: Storage) {
     await bootstrapAssets(message, args, storage);
   }
 
+  if (params.all === arg || params.rules === arg) {
+    await bootstrapRules(message, args, storage);
+  }
+
   if (params.all === arg || params.moves === arg) {
     await bootstrapMoves(message, args, storage);
+  }
+
+  if (params.channels === arg) {
+    await createRulesChannels(message, args, storage);
   }
 }

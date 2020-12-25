@@ -31,7 +31,7 @@ export const oraclesCommands: {
     description:
       'The first parameter is <oracle channel>. Other parameters: oracle items. Items are separated by spaces or ";"',
     helpText: "Example `.newo characters classes fighter cleric mage thief`",
-    aliases: ["newo", "neworacle", "new-o"],
+    aliases: ["newo", "neworacle", "new-o", "new-oracle"],
   },
   damage: {
     title: "Take harm",
@@ -51,20 +51,6 @@ export const oraclesCommands: {
     helpText: "Example `.price`",
     aliases: ["price"],
   },
-  // askOracle: {
-  //   title: "Спроси оракула",
-  //   description:
-  //     'Первый параметр <канал оракула>. Остальные параметры: пункты оракула. Пункты разделяются через пробел или ";"',
-  //   helpText: "Example `.cо существа файтер клирик маг вор`",
-  //   params: {
-  //     10: ["скорее всего", "скорее да"],
-  //     25: ["вероятно"],
-  //     50: ["не знаю", "возможно", "50/50"],
-  //     75: ["маловероятно"],
-  //     90: ["не возможно", "скорее нет"],
-  //   },
-  //   aliases: ["спросить", "со", "спроситьоракула", "ask"],
-  // },
 };
 
 export const oracles = {

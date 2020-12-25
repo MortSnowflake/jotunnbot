@@ -1,5 +1,6 @@
 import { Message, MessageEmbed, TextChannel } from "discord.js";
 import { IMove } from "../../local";
+import { sendStep } from "../character/character.wizard";
 import { Storage } from "../discord/storage";
 
 import {
@@ -9,54 +10,23 @@ import {
 } from "../tracker/tracker.model";
 import { viewProgTracker } from "../tracker/tracker.utils";
 import { rollActionDice } from "./dice.utils";
-import { makeCustomMove } from "./make-move-custom";
-import { makeTrainingMove } from "./make-move-training";
 
-export async function makeMove(
+export async function makeTrainingMove(
   message: Message,
   args: string[],
   move: IMove,
   storage: Storage
 ) {
-  if (move.customMove) {
-    makeCustomMove(message, args, move, storage);
-    return;
-  }
-
-  const { local } = storage;
-  if (
-    (move.argIsRequired && !args.length) ||
-    (args.length && storage.local.commands.help.aliases.includes(args[0])) ||
-    (move.findFromCode === "enterTheFray" && args.length < 3)
-  ) {
-    message.channel.sendWithEmoji(
-      new MessageEmbed().setDescription(
-        `*${move.name}*\n${local.help.aliases}: \`.${move.aliases.join(
-          " `  `."
-        )} \`\n\n${move.description}`
-      )
-    );
-    return;
-  }
-
   let battleTrack;
+  const { local } = storage;
 
   const player = await storage.getPlayer(message.author.id);
 
-  if (
-    move.trainingStep &&
-    player.characterWizardStep === move.trainingStep - 1 &&
-    message.channel.id === player.helperChannel.id
-  ) {
-    makeTrainingMove(message, args, move, storage);
-    return;
-  }
-
   if (move.findFromCode === "enterTheFray") {
-    const attr = args.shift()!.split("+");
+    const attr = args.shift()!;
     const rank = progTrackers[parseInt(args.shift()!) - 1];
     battleTrack = new ProgTracker(args.join(" "), rank, ProgTrackerType.BATTLE);
-    args = attr;
+    args = [attr];
   }
 
   if (args.length && isNaN(parseInt(args[0]))) {
@@ -70,10 +40,8 @@ export async function makeMove(
     if (attr) {
       args[0] = (player.character.attributes as any)[attr];
     } else {
-      for (const key in storage.local.character.status) {
-        if (
-          (storage.local.character.status as any)[key].aliases.includes(args[0])
-        ) {
+      for (const key in local.character.status) {
+        if ((local.character.status as any)[key].aliases.includes(args[0])) {
           attr = key;
           break;
         }
@@ -115,36 +83,30 @@ export async function makeMove(
     return;
   }
 
-  const [result, success, t, a, burnable, luckable] = await rollActionDice(
+  let ad = 1;
+  let chd = [10, 10];
+  if (move.trainingResult! === 2) {
+    ad = 6;
+    chd = [2, 2];
+  } else if (move.trainingResult! === 1) {
+    ad = 2;
+    chd = [1, 10];
+  }
+  const [result] = await rollActionDice(
     await storage.getPlayer(message.author.id),
     args,
-    storage.local
+    local,
+    ad,
+    chd
   );
 
-  let desc = result;
-
-  if (burnable) {
-    desc += `\n\n${storage.local.dice.momentDesc}`;
-  }
-
-  if (luckable) {
-    desc += `\n\n${storage.local.dice.luckDesc}`;
-  }
-
   await message.channel.sendWithEmoji(new MessageEmbed().setDescription(main));
-  await message.channel
-    .sendWithEmoji(new MessageEmbed().setDescription(desc).setFooter(move.name))
-    .then((msg) => {
-      if (burnable) {
-        msg.reactEmoji("moment");
-      }
-
-      if (luckable) {
-        msg.reactEmoji("luck");
-      }
-    });
   await message.channel.sendWithEmoji(
-    new MessageEmbed().setDescription(move.results[success as number])
+    new MessageEmbed().setDescription(result).setFooter(move.name)
+  );
+
+  await message.channel.sendWithEmoji(
+    new MessageEmbed().setDescription(move.results[move.trainingResult!])
   );
 
   if (battleTrack) {
@@ -154,4 +116,8 @@ export async function makeMove(
       local
     ).then((r) => r.message.pin());
   }
+
+  player.characterWizardStep++;
+  storage.updatePlayer(player);
+  sendStep(player.characterWizardStep, message.channel, storage);
 }

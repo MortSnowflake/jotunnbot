@@ -82,11 +82,11 @@ Read your assets. If some learned asset skill contains adds suitable to the move
     results: [
       `On ~miss~~miss~ your investigation unearths a dire threat or reveals an unwelcome truth that undermines your quest. Pay the Price - ${payPrice}`,
       `On ~hit~~miss~ information complicates your task or introduces
-new danger. Describe your discovery (Ask the Oracle if
+new danger. Describe your discovery (*Ask the Oracle* (send \`.ask\`) if
 not sure) and mark the +1 momentum (send \`.momentum+\`)`,
       `On ~hit~~hit~, you learn something useful and specific. You
 it is very clear what and how to do next. Describe what you learned
-(Ask the Oracle if not sure) and mark +2 to momentum (send \`.momentum+ 2\`).`,
+(*Ask the Oracle* (send \`.ask\`) if not sure) and mark +2 to momentum (send \`.momentum+ 2\`).`,
     ],
   },
   {
@@ -101,7 +101,7 @@ it is very clear what and how to do next. Describe what you learned
       `On ~miss~~miss~ your aid is ineffective. Pay the Price - ${payPrice}`,
       `On ~hit~~miss~ as above, but you must mark -1 supply (send \`.supply-\`) or -1 momentum (send \`.momentum-\`).`,
       `On ~hit~~hit~ your healing is useful. You (or the patient) can
-remove the wounded condition (send \`.wounded\` for it). After that, you (or he) marks +2 health (send \`.health+ 2\`).`,
+remove the wounded condition (send \`.wounded\` for it). After that, you (or the ally under your care) marks +2 health (send \`.health+ 2\`).`,
     ],
   },
   {
@@ -154,7 +154,7 @@ Read your assets. If some learned asset skill contains adds suitable to the move
       `On ~miss~~miss~ you face the dangers of the path. Pay the Price - ${payPrice}`,
       `On ~hit~~miss~ you reach the pass, mark -1 supply (send \`.supply-\`) and mark progress (press ~ptadd~ on the travel tracker).`,
       `On ~hit~~hit~ you reached the pass. If the pass is unknown
-describe it (Ask the Oracle if not sure). Then choose
+describe it (*Ask the Oracle* (send \`.ask\`) if not sure). Then choose
 one thing.
 • Lean: Mark progress (press ~ptadd~ on the travel tracker).
 • Fast way: mark progress, +1 momentum (send \`.momentum+\`) and -1 supply (send \`.supply-\`). `,
@@ -173,7 +173,7 @@ arrived in the wrong place. If you keep on traveling, erase all
 progress other than one completed and increase the rank
 travel for one (unless it's already epic).`,
       `On ~hit~~miss~ you have come to meet unexpected dangers and
-complexities. Describe them (Ask the Oracle if you are not sure) .`,
+complexities. Describe them (*Ask the Oracle* (send \`.ask\`) if you are not sure) .`,
       `On ~hit~~hit~ you arrived at the right moment. Pick one.
 • Take another move (but not *Progress move*) and add +1.
 • Mark +1 momentum (send \`.momentum+\`).`,
@@ -187,8 +187,7 @@ export const relationMoves: IMove[] = [
     name: "COMPEL",
     aliases: ["compel", "persuade", "trick"],
     description: `When you attempt to persuade someone to do something, envision your approach. If you…
-• Charm, pacify, barter, or convince:: send \`.compel heart\`
-(add +1 if you have a connection with him).
+• Charm, pacify, barter, or convince:: send \`.compel heart\` (add +1 if you share a bond: \`.compel heart 1\`).
 • Threaten or incite: send \`.compel iron\`
 • Lie or swindle: send \`.compel shadow\`
 
@@ -198,7 +197,7 @@ Read your assets. If some learned asset skill contains adds suitable to the move
       `On ~miss~~miss~ they refuse or make a demand which costs you greatly.
 Pay the Price - ${payPrice}`,
       `On ~hit~~miss~ like above, but they will ask for something in return. Describe,
-what they need (Ask the Oracle if not sure).`,
+what they need (*Ask the Oracle* (send \`.ask\`) if not sure).`,
       `On ~hit~~hit~ they will do what you want or share
 information. Mark the +1 momentum (send \`.momentum+\`). If you use this
 exchange to *Gather Information* (\'.investigate\'), then make it and add + 1.`,
@@ -209,7 +208,7 @@ exchange to *Gather Information* (\'.investigate\'), then make it and add + 1.`,
     name: "SOJOURN",
     attribute: "heart",
     aliases: ["sojourn", "waste-time", "wt"],
-    description: `When you spend time in the community looking for help, send \`.sojourn\` (it'll use Heart). If you have a connection with him, add +1 (send \`.sojourn 1\`). 
+    description: `When you spend time in the community looking for help, send \`.sojourn\` (it'll use Heart). Add +1 if you share a bond (send \`.sojourn 1\`). 
 
 Read your assets. If some learned asset skill contains adds suitable to the move send move with the adds e.g. \`.sojourn 1\`
 
@@ -225,7 +224,7 @@ Recover
 • Plan: Take +2 momentum (send \`.momentum+ 2\`).
 
 Provide Aid
-• Take a quest: Envision what this community needs, or what trouble it is facing (*Ask the Oracle* if unsure). If you chose to help, *Swear an Iron Vow* and add +1.`,
+• Take a quest: Envision what this community needs, or what trouble it is facing (*Ask the Oracle* if unsure: send \`.ask\`). If you chose to help, *Swear an Iron Vow* and add +1.`,
     results: [
       `On ~miss~~miss~ you find no help here Pay the Price - ${payPrice}`,
       `On a ~hit~~miss~, you and your allies may each choose one from within the categories above. If you share a bond, choose one more. You and your allies may each focus on one of your chosen recover actions and send \`.heart\`. If you share a bond, add +1 (\`.heart 1\`).
@@ -269,7 +268,7 @@ If you make this move after you successfully *Fulfill Your Vow* to their benefit
 Read your assets. If some learned asset skill contains adds suitable to the move send move with the adds e.g. \`.bond 1\``,
     results: [
       `On ~miss~~miss~ they reject you. Pay the Price - ${payPrice}`,
-      `On ~hit~~miss~ they ask something more of you first. Envision what it is (*Ask the Oracle if unsure*), do it (or *Swear an Iron Vow*), and mark the bond. If you refuse or fail, Pay the Price - ${payPrice}`,
+      `On ~hit~~miss~ they ask something more of you first. Envision what it is (*Ask the Oracle* if unsure: send \`.ask\`), do it (or *Swear an Iron Vow*), and mark the bond. If you refuse or fail, Pay the Price - ${payPrice}`,
       `On ~hit~~hit~ make note of the bond, mark a tick on your bond progress track, and choose one.
 • Take +1 spirit (send \`.spirit+\`).
 • Take +2 in momentum (send \`.momentum+ 2\`).`,
@@ -285,7 +284,7 @@ Read your assets. If some learned asset skill contains adds suitable to the move
 Read your assets. If some learned asset skill contains adds suitable to the move send move with the adds e.g. \`.bond 1\``,
     results: [
       `On ~miss~~miss~ or if you have no interest in maintaining this relationship, clear the bond and Pay the Price - ${payPrice}`,
-      `On ~hit~~miss~ your bond is fragile and you must prove your loyalty. Envision what they ask of you (*Ask the Oracle* if unsure), and do it (or *Swear an Iron Vow*). If you refuse or fail, clear the bond and Pay
+      `On ~hit~~miss~ your bond is fragile and you must prove your loyalty. Envision what they ask of you (*Ask the Oracle* if unsure: send \`.ask\`), and do it (or *Swear an Iron Vow*). If you refuse or fail, clear the bond and Pay
 Price - ${payPrice}`,
       `On ~hit~~hit~ this test has strengthened your bond. Choose one.
 • Mark +1 spirit (send \`.spirit+\`).
@@ -306,15 +305,14 @@ Read your assets. If some learned asset skill contains adds suitable to the move
     type: "RELATIONSHIP MOVES",
     name: "WRITE YOUR EPILOGUE",
     aliases: ["epilogue", "write-your-epilogue"],
+    customMove: "epilogue",
     description: `*Progress move*
-    When you retire from your life as Ironsworn, envision two things: What you hope for, and what you fear. Then send
-\`.progress <your bonds count>\`. Momentum is ignored on this roll.`,
+When you retire from your life as Ironsworn, envision two things: What you hope for, and what you fear. This move uses your bond amount.`,
     results: [
       `On ~miss~~miss~, your fears are realized. `,
-      `On ~hit~~miss~ your life takes an unexpected turn, but not necessarily for the worse. You find yourself spending your days with someone or in a place you did not foresee. Envision it (*Ask the Oracle* if unsure).`,
+      `On ~hit~~miss~ your life takes an unexpected turn, but not necessarily for the worse. You find yourself spending your days with someone or in a place you did not foresee. Envision it (*Ask the Oracle* if unsure: send \`.ask\`).`,
       `On ~hit~~hit~, things come to pass as you hoped.`,
     ],
-    withoutRoll: true,
   },
 ];
 
@@ -405,7 +403,7 @@ When you use a decisive move and get it, you can end the fight. If you decide to
 • You suffer collateral damage: Something of value is lost or broken, or someone important must pay the cost.
 • You’ll pay for it: An objective falls out of reach.
 • Others won’t forget: You are marked for vengeance.`,
-      `On ~hit~~hit~, this foe is no longer in the fight. They are killed, out of action, flee, or surrender as appropriate to the situation and your intent (*Ask the Oracle* if unsure).`,
+      `On ~hit~~hit~, this foe is no longer in the fight. They are killed, out of action, flee, or surrender as appropriate to the situation and your intent (*Ask the Oracle* if unsure: send \`.ask\`).`,
     ],
   },
   {
@@ -451,7 +449,7 @@ or wield an improvised or simple weapon (such as a shield, stick, club, staff, o
 
 *Pay the Price*: When suffering the outcome of a move.
 
-*Ask the Oracle*: When asking questions about combat events or your foe’s intent and actions.
+*Ask the Oracle*: When asking questions about combat events or your foe’s intent and actions (send \`.ask\`).
 
 *Act dashingly*: if you describe your fight brightly, juicy and in detail, add +1 to the roll
 `,
@@ -489,7 +487,7 @@ If your health is 0, mark the momentum equal to the remaining -health  (e.g. sen
       `On ~miss~~miss~ you are dead.`,
       `On ~hit~~miss~ choose one.
 • You die, but not before making a noble sacrifice. Envision your final moments.
-• Death desires something of you in exchange for your life. Envision what it wants (Ask the Oracle if unsure), and Swear an Iron Vow (formidable or extreme) to complete that quest. If you fail to score a hit when you Swear an Iron Vow, or refuse the quest, you are dead. Otherwise, you return to the mortal world and are now cursed (send \`.cursed\` for it), you can only remove the curse completing the quest (send \`.cursed\` after it again).`,
+• Death desires something of you in exchange for your life. Envision what it wants (*Ask the Oracle* if unsure: send \`.ask\`), and Swear an Iron Vow (formidable or extreme) to complete that quest. If you fail to score a hit when you Swear an Iron Vow, or refuse the quest, you are dead. Otherwise, you return to the mortal world and are now cursed (send \`.cursed\` for it), you can only remove the curse completing the quest (send \`.cursed\` after it again).`,
       `On ~hit~~hit~ death rejects you. You are cast back into the mortal world.`,
     ],
   },
@@ -534,7 +532,7 @@ If you roll a miss with a 1 on your action die, and your companion’s health is
       `On ~miss~~miss~ you succumb to despair or horror and are lost.`,
       `On ~hit~~miss~ choose one.
 • Your spirit or sanity breaks, but not before you make a noble sacrifice. Envision your final moments.
-• You see a vision of a dreaded event coming to pass. Envision that dark future (Ask the Oracle if unsure), and Swear an Iron Vow (formidable or extreme) to prevent it. If you fail to score a hit when you Swear an Iron Vow, or refuse the quest, you are lost. Otherwise, you return to your senses and are now tormented (send \`.tormented\` for it). 
+• You see a vision of a dreaded event coming to pass. Envision that dark future (*Ask the Oracle* if unsure: send \`.ask\`), and Swear an Iron Vow (formidable or extreme) to prevent it. If you fail to score a hit when you Swear an Iron Vow, or refuse the quest, you are lost. Otherwise, you return to your senses and are now tormented (send \`.tormented\` for it). 
 You may only clear the tormented debility by completing the quest (send \`.tormented\` after it again).`,
       `On ~hit~~hit~ you resist and press on.`,
     ],
@@ -553,7 +551,7 @@ You may only clear the tormented debility by completing the quest (send \`.torme
     aliases: [],
     description: `When your momentum is at its minimum (-6), and you suffer additional -momentum, choose one.
 • Exchange each additional -momentum for any combination of \`.health-\`, \`.spirit-\` or \`.supply-\` as appropriate to the circumstances.
-• Envision an event or discovery (Ask the Oracle if unsure) which undermines your progress in a current quest, journey or fight. Then, for each additional -momentum, press ~ptsub~ on the progress tracker or the vow tracker`,
+• Envision an event or discovery (*Ask the Oracle* if unsure: send \`.ask\`) which undermines your progress in a current quest, journey or fight. Then, for each additional -momentum, press ~ptsub~ on the progress tracker or the vow tracker`,
     withoutRoll: true,
     results: [],
   },
@@ -563,35 +561,22 @@ export const fateMoves: IMove[] = [
   {
     type: "FATE MOVES",
     name: "SWEAR AN IRON VOW",
-    aliases: [],
-    description: `When you swear on iron to complete your quest,
-write down your vow and assign a rank (1 - Troublesome, 2 - Dangerous, 3 - Formidable, 4 - Extreme, 5 - Epic) to the quest and create a vow (e.g. \`.vow 3 Save the princess\`). 
-Then, send \`.heart\` If this is an vow in favor of a person or community, with
-to whom you have a connection, add +1.
-
-On ~hit~~hit~ you are full of strength and determination and you know for sure that
-do next (Ask Oracle if not sure). Mark +2 momentum (send \`.momentum+ 2\`).
-
-On ~hit~~miss~ you are single-witsed, but you have more questions than
-answers. Mark +1 momentum (send \`.momentum+\`) and take action to find the path.
-
-~miss~~miss~ you face serious obstacles before
-start your assignment. Describe what stands in your way
-(Ask the Oracle if not sure) and pick one.
-• You will not back down: mark -2 to momentum (send \`.momentum- 2\`) and act.
-• Surrender: Give up your vow. `,
-
-    results: [],
+    aliases: ["swear"],
+    attribute: "heart",
+    description: `When you swear upon iron to complete a quest, write your vow and give the quest a rank (it will use your +heart). If you make this vow to a person or community with whom you share a bond, add +1 (.swear 1).`,
+    results: [
+      `On ~miss~~miss~ you face a significant obstacle before you can begin your quest. Envision what stands in your way (send \`.ask\` if unsure), Send \`.vow <rank> <description>\` (e.g. \`.vow 2 save the princess\`) and choose one.
+• You press on: Suffer -2 momentum (send \`.momentum- 2\`), and do what you must to overcome this obstacle.
+• You give up: *Forsake Your Vow* (press ~ptdel~ on the vow tracker)`,
+      `On ~hit~~miss~ you are determined but begin your quest with more questions than answers. Take +1 momentum (send \`.momentum+\`), and envision what you do to find a path forward. Send \`.vow <rank> <description>\` (e.g. \`.vow 2 save the princess\`).`,
+      `On ~hit~~hit~ you are emboldened and it is clear what you must do next (send \`.ask\` if unsure). Take +2 momentum (send \`.momentum+ 2\`). Send \`.vow <rank> <description>\` (e.g. \`.vow 2 save the princess\`).`,
+    ],
   },
   {
     type: "FATE MOVES",
     name: "REACH A MILESTONE",
     aliases: [],
-    description: `When you are making significant progress in your
-assignments, overcoming obstacles, completing dangerous
-travel, solving complex mysteries, conquering
-powerful opponents, gaining support or
-getting important trophies, mark the progress (press ~ptadd~ on the vow tracker).`,
+    description: `When you make significant progress in your quest by overcoming a critical obstacle, completing a perilous journey, solving a complex mystery, defeating a powerful threat, gaining vital support, or acquiring a crucial item, you may mark progress (press ~ptadd~ on the vow tracker).`,
     results: [],
   },
   {
@@ -600,20 +585,13 @@ getting important trophies, mark the progress (press ~ptadd~ on the vow tracker)
     findFromCode: "fulfillYourVow",
     aliases: [],
     description: `*Progress move*
-When you reach the goals of your vow, press ~ptroll~ on the vow tracker.`,
+When you achieve what you believe to be the fulfillment of your vow, press ~ptroll~ on the vow tracker.`,
     results: [
-      `On ~miss~~miss~, your mission is incomplete. Describe what happened
-    (Ask the Oracle if not sure) and pick one.
-    • Everything from the beginning: clear all progress except one and
-    increase the rank of the quest by one (if it is not already
-    epic).
-    • You give up: *FORSAKE YOUR VOW*. Send \`.forsake\``,
-      `On ~hit~~miss~ not everything is done yet or you will know the true goal
-    tasks. Describe what you learned (Ask the Oracle if you are not sure).
-    You automatically get experience (troublesome = 0; dangerous = 1; formidable = 2;
-    extreme = 3; epic = 4). You can bring again
-    An iron vow. If you do this, add +1.`,
-      `On ~hit~~hit~, you finished your mission. You automatically get experience (troublesome = 1;
+      `On ~miss~~miss~, your quest is undone. Envision what happens (*Ask the Oracle* if unsure: send \`.ask\`), and choose one.
+• You recommit: Clear all but one filled progress, and raise the quest’s rank by one (if not already epic).
+• You give up: *Forsake Your Vow* (press ~ptdel~ on the vow tracker)`,
+      `On ~hit~~miss~, there is more to be done or you realize the truth of your quest. Envision what you discover (*Ask the Oracle* if unsure: send \`.ask\`). Then, mark experience (troublesome=0; dangerous=1; formidable=2; extreme=3; epic=4). You may *Swear an Iron Vow* (\`.swear\`) to set things right. If you do, add +1.`,
+      `On ~hit~~hit~, your quest is complete. You automatically get experience (troublesome = 1;
       dangerous = 2; formidable = 3; extreme = 4; epic = 5).`,
     ],
   },
@@ -621,52 +599,51 @@ When you reach the goals of your vow, press ~ptroll~ on the vow tracker.`,
     type: "FATE MOVES",
     name: "FORSAKE YOUR VOW",
     aliases: ["forsake"],
-    description: `When you renege on an assignment, you don't keep a promise or the goal is lost to you, erase the vow and send \`.sustain\`.
-Mark -spirit equal to the rank of the task (troublesome = 1; dangerous = 2; formidable = 3; extreme = 4; epic = 5) e.g. send \`.spirit- 3\`.
-If an vow has been made to a person or community, with with whom you have a connection, Test your connection the next meeting.`,
-
+    description: `When you renounce your quest, betray your promise, or the goal is lost to you, press :ptdel: on the vow tracker and send \`.sustain\`.
+You suffer -spirit equal to the rank of your quest (troublesome=1; dangerous=2; formidable=3; extreme=4; epic=5). e.g. send \`.spirit- 3\`.
+If the vow was made to a person or community with whom you share a bond, *Test Your Bond* (send \`.test-bond\`) when you next meet.`,
     results: [],
   },
   {
     type: "FATE MOVES",
     name: "ADVANCE",
     aliases: [],
-    description: `When you focus on your skills, you train,
-find inspiration, get an award or a companion, then
-you can spend 3 experience to get a new asset or 2
-experience to improve the taken asset`,
-
+    description: `When you focus on your skills, receive training, find inspiration, earn a reward, or gain a companion, you may spend 3 experience to add a new asset, or 2 experience to upgrade an asset.`,
     results: [],
   },
   {
     type: "FATE MOVES",
     name: "PAY THE PRICE",
     aliases: [],
-    description: `When you get the consequences of your move, choose one.
-• There are obvious consequences.
-• Describe two negative consequences. Ask yes/no question: determine the probability the first negative consequence (from 1 to 100) and send \`.d100 \`, if the value on the cube is less than the probability, then the first negative consequence appears otherwise - the second one.
-• Send \`.price \`. If you have difficulties with
-interpretation of the situation, just send it again`,
-
+    description: `When you suffer the outcome of a move, choose one.
+• Make the most obvious negative outcome happen.
+• Envision two negative outcomes. Rate one as "likely", and send \`.ask likely\`. On a ‘yes’, make that outcome happen. Otherwise, make it the other.
+• Send \`.price \`. If you have difficulty interpreting the result to fit the current situation, send it again`,
     results: [],
   },
   {
     type: "FATE MOVES",
     name: "ASK THE ORACLE",
-    aliases: [],
-    description: `
-When you get answers, you make discoveries
-determine the reaction of other characters or create
-effects and events, you can ...
-• Conclusion: determine the answer based on the most interesting
-and the obvious option.
-• Ask yes/no question: determine the probability "yes" (from 1 to 100) and send \`.d100 \`, if the value on the cube is less than the probability, then the answer is "yes".
-• Choose two: Describe two options. Label one as
-"Probable" and roll over the table to see it has arrived
-whether he. If not, use another one.
-• Inspiration: reflect or use a sudden thought`,
+    aliases: ["ask"],
+    description: `When you seek to resolve questions, discover details in the world, determine how other characters respond, or trigger encounters or events, you may…
 
+• Draw a conclusion: Decide the answer based on the most interesting and obvious result.
+
+• Ask a yes/no question: Decide the odds of a "yes", and send \`.ask 50/50\` or another odd from the list: 
+\`almost certain, likely, 50/50, unlikely, small chance\`.
+
+• Pick two: Envision two options. Rate one as "likely", and send \`.ask likely\`. If not, it is the other.
+
+• Spark an idea: Brainstorm or use a random prompt (send \`.o\`).`,
     results: [],
+    customMove: "ask",
+    params: {
+      certain: "almost certain",
+      likely: "likely",
+      half: "50/50",
+      unlikely: "unlikely",
+      small: "small chance",
+    },
   },
 ];
 
@@ -693,7 +670,7 @@ Then, send \`.delve\` to explore this place.
     name: "DELVE THE DEPTHS",
     aliases: [],
     fakeAliases: ["delve"],
-    description: `When you move to another room within the site, imagine your surroundings (ask the oracles if unsure or send \`.environment\`). Then consider your approach. If you navigate this area...
+    description: `When you move to another room within the site, imagine your surroundings (*Ask the oracle* (\`.ask\`) if unsure or send \`.environment\`). Then consider your approach. If you navigate this area...
 • With a hurry: send \`.delve edge \` (affects the chance to pass the site faster, but more dangerous)
 • With cunning or quietly: send \`.delve shadow \` (affects the chance to pass the site slower, but safer)
 • Carefully or intuitively: send \`.delve wits \` (affects the chance to notice more details in the site)
@@ -744,13 +721,13 @@ When your site exploration comes to an end, press ~ptroll~ on the site tracker.
 On ~hit~~hit~, you define a target and the situation is favorable for you. Pick one.
 • Take another move (not progress) and add +1.
 • Take +1 momentum (send \`.momentum+\`).
-On ~hit~~miss~, you define a target, but you face an unexpected danger or complication. Imagine what you find (ask the oracles if you're not sure).
+On ~hit~~miss~, you define a target, but you face an unexpected danger or complication. Imagine what you find (*Ask the Oracle* (send \`.ask\`) if you're not sure).
 On ~miss~~miss~ your target becomes unattainable, you are misled as to the nature of your target, or you find that this site contains unexpected depths. If you continue your exploration, clear all but one completed progress and raise the site meter by one (if not already epic).
 `,
 
     results: [
       `On ~miss~~miss~ your target becomes unattainable, you are misled as to the nature of your target, or you find that this site contains unexpected depths. If you continue your exploration, clear all but one completed progress and raise the site meter by one (if not already epic).`,
-      `On ~hit~~miss~, you define a target, but you face an unexpected danger or complication. Imagine what you find (ask the oracles if you're not sure).`,
+      `On ~hit~~miss~, you define a target, but you face an unexpected danger or complication. Imagine what you find (*Ask the Oracle* (send \`.ask\`) if you're not sure).`,
       `On ~hit~~hit~, you define a target and the situation is favorable for you. Pick one.
 • Take another move (not progress) and add +1.
 • Take +1 momentum (send \`.momentum+\`).`,

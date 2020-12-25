@@ -81,11 +81,16 @@ async function checkProgress(
         player.character.xp += vowXp[pt.rank] - (resNum === 1 ? 1 : 0);
         storage.updatePlayerAndCharEmbed(player);
         reaction.message.delete();
+        player.helperChannel.send(
+          `${local.progTracker.privateDoneMsg}. ${local.scene.worldIsChanging(
+            reaction.message.guild
+              ?.getChannelByName(local.discord.worldIsChanging)
+              ?.toString()!
+          )}`
+        );
         reaction.message?.guild
           ?.getTableChannel(local)!
-          .send(
-            `<@${player.userId}>, ${local.progTracker.doneMsg}: ${pt.text}`
-          );
+          .send(`<@${player.userId}> ${local.progTracker.doneMsg}: ${pt.text}`);
       }
       break;
     case ProgTrackerType.DELVE:

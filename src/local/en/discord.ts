@@ -1,5 +1,5 @@
 export const discord = {
-  chronicChannel: "chronic",
+  chronicChannel: "chronicle",
   testChronicChannel: "test-chronic",
   tableChannel: "table",
   sceneCathegoryName: "SCENES",
@@ -10,4 +10,5 @@ export const discord = {
   helperChannelName: "assistant",
   channelsInfo: "phases",
   masterChannelName: "master-journal",
+  worldIsChanging: "5-world-is-changing",
 };

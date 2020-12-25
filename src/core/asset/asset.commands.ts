@@ -5,7 +5,6 @@ import { Tracker } from "../tracker/tracker.model";
 import { TextChannel } from "discord.js";
 import { toAsset, viewAssetTemplate } from "./asset.utils";
 import { addLoyaltyPoint } from "../lore/lore.utils";
-import { lotsOfMessagesGetter } from "../lore/lore.commands";
 const fs = require("fs");
 
 export const assetCommands: {
@@ -65,7 +64,7 @@ async function harvestAsset(
 
   for await (const assCnl of assCnlArr) {
     const channel = await message.guild?.getChannelByName(assCnl);
-    const messages = await lotsOfMessagesGetter(channel as TextChannel);
+    const messages = await message.channel.getMessageBunch();
     jsonObj[assCnl] = messages
       .filter((m) => m.embeds?.length)
       .map((m) => toAsset(m.embeds[0], storage.local));
@@ -88,7 +87,10 @@ export async function bootstrapAssets(
   const assCnlArr = Object.values(asset.assetChanelName);
 
   for await (const assCnl of assCnlArr) {
-    const channel = await message.guild?.getChannelByName(assCnl);
+    const channel = (await message.guild?.getChannelByName(
+      assCnl
+    )) as TextChannel;
+    await channel.bulkDelete(100);
     const assets = asset.assets[assCnl];
     await assets?.forEach(async (a: any) => {
       await viewAssetTemplate(

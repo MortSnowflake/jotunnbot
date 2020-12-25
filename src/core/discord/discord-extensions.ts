@@ -19,11 +19,7 @@ declare module "discord.js" {
       local: Local,
       member?: GuildMember
     ): Promise<TextChannel>;
-    createPublicChannel(
-      name: string,
-      category: string,
-      local: Local
-    ): Promise<TextChannel>;
+    createPublicChannel(name: string, category: string): Promise<TextChannel>;
     getTableChannel(local: Local): TextChannel;
     getChronicChannel(local: Local): TextChannel;
     getScenesCathegory(local: Local): CategoryChannel;
@@ -33,13 +29,38 @@ declare module "discord.js" {
 
   export interface Channel {
     sendWithEmoji(msg: string | MessageEmbed): Promise<Message>;
+    sendWithChannelAndEmoji(msg: string | MessageEmbed): Promise<Message>;
+    getMessageBunch(limit?: number): Promise<Message[]>;
   }
 
   export interface Message {
     reactEmoji(emoji: string): Promise<MessageReaction>;
     editWithEmoji(msg: string | MessageEmbed): Promise<Message>;
+    editWithChannelAndEmoji(msg: string | MessageEmbed): Promise<Message>;
   }
 }
+
+TextChannel.prototype.getMessageBunch = async function (limit = 500) {
+  const sum_messages = [];
+  let last_id;
+
+  while (true) {
+    const options = { limit: 100 };
+    if (last_id) {
+      (options as any).before = last_id;
+    }
+
+    const messages = await this.messages.fetch(options);
+    sum_messages.push(...messages.array());
+    last_id = messages?.last()?.id;
+
+    if (messages.size != 100 || sum_messages.length >= limit) {
+      break;
+    }
+  }
+
+  return sum_messages;
+};
 
 Message.prototype.reactEmoji = function (emoji: string) {
   return this.react(
@@ -56,12 +77,44 @@ Message.prototype.editWithEmoji = function (msg: string | MessageEmbed) {
   return this.edit(msg);
 };
 
+Message.prototype.editWithChannelAndEmoji = function (
+  msg: string | MessageEmbed
+) {
+  if (typeof msg === "string") {
+    return this.edit(
+      replaceEmoji(replaceChannels(msg, this.guild!), this.guild!)
+    );
+  }
+
+  msg.description = replaceEmoji(
+    replaceChannels(msg.description!, this.guild!),
+    this.guild!
+  );
+  return this.edit(msg);
+};
+
 TextChannel.prototype.sendWithEmoji = function (msg: string | MessageEmbed) {
   if (typeof msg === "string") {
     return this.send(replaceEmoji(msg, this.guild));
   }
 
   msg.description = replaceEmoji(msg.description!, this.guild);
+
+  return this.send(msg);
+};
+
+TextChannel.prototype.sendWithChannelAndEmoji = function (
+  msg: string | MessageEmbed
+) {
+  if (typeof msg === "string") {
+    const gg = replaceChannels(msg, this.guild);
+    return this.send(replaceEmoji(gg, this.guild));
+  }
+
+  msg.description = replaceEmoji(
+    replaceChannels(msg.description!, this.guild),
+    this.guild
+  );
 
   return this.send(msg);
 };
@@ -179,4 +232,21 @@ function replaceEmoji(text: string, guild: Guild) {
         : i
     )
     .join("");
+}
+
+function replaceChannels(text: string, guild: Guild) {
+  const splitted = text.split("#");
+
+  if (splitted.length > 1) {
+    const skip = splitted.shift();
+    return [
+      skip,
+      ...splitted.map((w) => {
+        const arr = w.split(" ");
+        arr[0] = guild.getChannelByName(arr[0])?.toString()!;
+        return arr.join(" ");
+      }),
+    ].join("");
+  }
+  return text;
 }

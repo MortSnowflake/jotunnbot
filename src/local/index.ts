@@ -30,6 +30,8 @@ export interface IMove {
   findFromCode?: string;
   trainingStep?: CharacterWizardStep;
   trainingResult?: number;
+  params?: any;
+  customMove?: string;
 }
 
 export interface Commands {
@@ -115,6 +117,7 @@ export interface Scene {
   doomPointsDontForget: string;
   sceneRules: (phasesChnl: string, chronicChnl: string) => string;
   endOfSceneAdvice: (sceneName: string) => string;
+  worldIsChanging: (wordChangeCnl: string) => string;
 }
 
 export interface Discord {
@@ -129,6 +132,7 @@ export interface Discord {
   helperChannelName: string;
   channelsInfo: string;
   masterChannelName: string;
+  worldIsChanging: string;
 }
 
 export interface ProgTracker {
@@ -136,6 +140,7 @@ export interface ProgTracker {
   progress: string;
   abandonMsg: string;
   doneMsg: string;
+  privateDoneMsg: string;
   suffix: NumberStringDictionary;
   rankParse: StringNumberDictionary;
   ranks: NumberStringDictionary;
@@ -238,7 +243,7 @@ export interface Local {
   delve: Delve;
   master: Master;
   moves: IMove[];
-  rules: { [id: string]: string[] };
+  rules: { channel: string; messages: string[] }[];
   adventureMoves: IMove[];
   battleMoves: IMove[];
   relationMoves: IMove[];

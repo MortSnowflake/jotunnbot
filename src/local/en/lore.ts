@@ -52,6 +52,8 @@ export const loreCommands: {
       all: "all",
       assets: "assets",
       moves: "moves",
+      rules: "rules",
+      channels: "channels",
     },
   },
 };
@@ -74,7 +76,9 @@ export const scene = {
   yes: "yes",
   storyteller: "Storyteller",
   endOfSceneAdvice: (name: string) =>
-    `The scene "${name}" has ended. You gain 1 xp. Be sure to mark the progress of the vows involved in this scene. Update LORE channels.`,
+    `The scene "${name}" has ended. You gain 1 xp. Be sure to mark the progress of the vows involved in this scene.`,
+  worldIsChanging: (wordChangeCnl: string) =>
+    `Make move *Word is changing*. Details: ${wordChangeCnl}`,
   doomPointsTracker:
     "Spend Doom Points on problems for you or allies. Spending Doom Points increases your Luck Points. By the end of the scene, you need to spend all the Doom Points, otherwise they will work at once at the end of the scene.",
   doomPointsDontForget:
