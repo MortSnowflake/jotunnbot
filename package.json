@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && node build/index.js",
-    "suttung": "nodemon --config ./suttung/nodemon.json",
+    "suttung": "ts-node ./src/suttung/index.ts",
     "build": "rimraf ./build && tsc",
     "start:dev": "nodemon",
-    "suttung:dev": "nodemon --config ./suttung/nodemon.json"
+    "suttung:dev": "nodemon --config ./src/suttung/nodemon.json"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,7 @@
     "typescript": "^3.8.3"
   },
   "devDependencies": {
+    "@types/hogan.js": "^3.0.0",
     "@types/pluralize": "0.0.29",
     "diff2html-cli": "5.1.6",
     "nodemon": "2.0.3",

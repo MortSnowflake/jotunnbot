@@ -4,8 +4,8 @@ import pluralize from "pluralize";
 import { getEqualLiterals, getFiles, getLatestCommit } from "./utilities";
 import { saveDiffAsHtml } from "./utilities/save-diff-as-html";
 
-const getLocalePath = (locale: string) => join(__dirname, `../src/local/${locale}`);
-const outPath = join(__dirname, "..", "out");
+const getLocalePath = (locale: string) => join(__dirname, `../local/${locale}`);
+const outPath = join(__dirname, "../..", "out");
 
 async function showChanges(targetLocale: string) {
   console.log(`Getting changes for source locale...`);

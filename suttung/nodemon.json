@@ -1,6 +1,0 @@
-{
-  "watch": ["suttung"],
-  "ext": ".ts,.js",
-  "ignore": [],
-  "exec": "ts-node ./suttung/index.ts ru"
-}
