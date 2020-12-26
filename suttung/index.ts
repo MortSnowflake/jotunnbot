@@ -1,28 +1,42 @@
-import { writeFileSync } from "fs";
-import { join, relative } from "path";
+import { mkdirSync, writeFileSync } from "fs";
+import { dirname, join, relative } from "path";
 import pluralize from "pluralize";
-import { getFiles, getLatestCommit } from "./utilities";
+import { getEqualLiterals, getFiles, getLatestCommit } from "./utilities";
 import { saveDiffAsHtml } from "./utilities/save-diff-as-html";
 
 const getLocalePath = (locale: string) => join(__dirname, `../src/local/${locale}`);
 const outPath = join(__dirname, "..", "out");
 
 async function showChanges(targetLocale: string) {
-  console.log(`Getting changes for en locale...`);
+  console.log(`Getting changes for source locale...`);
   let changedFiles = 0;
   const sourceFiles = await getFiles(getLocalePath("en"));
+  console.log(`Source locale contains ${sourceFiles.length} ${pluralize("file", sourceFiles.length)}`);
   const missingFiles: string[] = [];
   await sourceFiles.reduce(async (promise, file) => {
     const relativeFileName = relative(getLocalePath("en"), file.path);
     const sourceHash = await getLatestCommit(file.path);
     const targetHash = await getLatestCommit(join(getLocalePath(targetLocale), relativeFileName));
+
     if (!targetHash) {
       missingFiles.push(relativeFileName);
-    }
-
-    if (targetHash && targetHash !== sourceHash) {
-      changedFiles++;
-      await saveDiffAsHtml(sourceHash, targetHash, file.path, outPath, relativeFileName);
+    } else {
+      console.log(`Getting AST for ${file.path}`);
+      let hasChanges = false;
+      const diff = getEqualLiterals(file.path, join(getLocalePath(targetLocale), relativeFileName));
+      if (diff) {
+        hasChanges = true;
+        const jsonPath = join(outPath, "json", `${relativeFileName}.json`);
+        mkdirSync(dirname(jsonPath), { recursive: true });
+        writeFileSync(jsonPath, JSON.stringify(diff, null, 2));
+      }
+      if (targetHash !== sourceHash) {
+        hasChanges = true;
+        await saveDiffAsHtml(sourceHash, targetHash, file.path, outPath, relativeFileName);
+      }
+      if (hasChanges) {
+        changedFiles++;
+      }
     }
   }, Promise.resolve());
 
