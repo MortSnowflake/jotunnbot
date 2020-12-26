@@ -66,11 +66,18 @@ export const asset: Asset = {
   assets: assets as { [cnl: string]: Partial<Asset>[] },
   customAsset: `
 To add a new booklet send the command .asset
-\`\`\`.asset <type> | <name> | <skill 1> | <skill 2> | <skill 3> | [description] | [Max. health] | [name of the input field] \`\`\`, where <...> is a required field, and [...] is an optional field. Optional fields can be omitted, but if, for example, you need to specify the name of the input field but you do not need health and description, then the parameters should be left blank like this 
-\`\`\`.asset <type>; <name>; <skill 1>; <skill 2>; <skill 3> ;;; [input field name] \`\`\`
+\`\`\`
+.asset <type> | <name> | <skill 1> | <skill 2> | <skill 3> | [description] | [Max. health] | [name of the input field] 
+\`\`\`
+, where <...> is a required field, and [...] is an optional field. Optional fields can be omitted, but if, for example, you need to specify the name of the input field but you do not need health and description, then the parameters should be left blank like this 
+\`\`\`
+.asset <type>; <name>; <skill 1>; <skill 2>; <skill 3> ;;; [input field name] 
+\`\`\`
 You can use the symbol; instead of |, but sometimes the symbol appears in the descriptions of booklets; it should be replaced with. or, in the description, so that the bot would understand you correctly.
     
 Example:
-\`\`\` .asset COMPANION | HAWK | Vigilant: when Traveling add +1 | Ardent: +1 Trump. | Alert: add +2. | Your hawk can help. | 3 | Name | \`\`\`
+\`\`\`
+.asset COMPANION | HAWK | Vigilant: when Traveling add +1 | Ardent: +1 Trump. | Alert: add +2. | Your hawk can help. | 3 | Name | 
+\`\`\`
   `,
 };

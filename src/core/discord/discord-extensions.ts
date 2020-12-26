@@ -31,6 +31,7 @@ declare module "discord.js" {
     sendWithEmoji(msg: string | MessageEmbed): Promise<Message>;
     sendWithChannelAndEmoji(msg: string | MessageEmbed): Promise<Message>;
     getMessageBunch(limit?: number): Promise<Message[]>;
+    customBulkDelete(limit?: number): Promise<void>;
   }
 
   export interface Message {
@@ -60,6 +61,13 @@ TextChannel.prototype.getMessageBunch = async function (limit = 500) {
   }
 
   return sum_messages;
+};
+
+TextChannel.prototype.customBulkDelete = async function (limit = 500) {
+  const msgs = await this.getMessageBunch(limit);
+  for await (const m of msgs) {
+    m.delete();
+  }
 };
 
 Message.prototype.reactEmoji = function (emoji: string) {

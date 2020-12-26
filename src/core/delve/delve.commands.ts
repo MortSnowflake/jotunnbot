@@ -314,5 +314,5 @@ async function clearDenizens(
     return;
   }
 
-  message.channel.bulkDelete(100);
+  message.channel.customBulkDelete(100);
 }

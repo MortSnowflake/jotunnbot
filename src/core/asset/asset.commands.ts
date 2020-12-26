@@ -91,9 +91,9 @@ export async function bootstrapAssets(
     const channel = (await message.guild?.getChannelByName(
       assCnl
     )) as TextChannel;
-    await channel.bulkDelete(100);
+    await channel.customBulkDelete(100);
     const assets = asset.assets[assCnl];
-    await assets?.forEach(async (a: any) => {
+    assets?.forEach(async (a: any) => {
       await viewAssetTemplate(
         a as Asset,
         channel as TextChannel,

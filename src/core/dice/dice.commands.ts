@@ -88,20 +88,11 @@ export async function bootstrapRules(
   args: string[],
   storage: Storage
 ) {
-  /*const rule = storage.local.rules[0];
-  const channel = (await message.guild?.getChannelByName(
-    rule.channel
-  )) as TextChannel;
-  await channel.bulkDelete(100);
-  await rule.messages.forEach(
-    async (m) => await channel.sendWithChannelAndEmoji(m)
-  );*/
-
   for await (const rule of storage.local.rules) {
     const channel = (await message.guild?.getChannelByName(
       rule.channel
     )) as TextChannel;
-    await channel.bulkDelete(100);
+    await channel.customBulkDelete(100);
     await rule.messages.forEach(
       async (m) => await channel.sendWithChannelAndEmoji(m)
     );
@@ -126,7 +117,7 @@ export async function bootstrapMoves(
     const channel = (await message.guild?.getChannelByName(
       move.toLowerCase().split(" ").join("-")
     )) as TextChannel;
-    await channel.bulkDelete(100);
+    await channel.customBulkDelete(100);
     await sendMoveDescriptions(
       channel as TextChannel,
       move.split(" "),
