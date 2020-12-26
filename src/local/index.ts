@@ -104,6 +104,7 @@ export interface Asset {
   assetType: NumberStringDictionary;
   assetChanelName: NumberStringDictionary;
   assets: { [cnl: string]: Partial<Asset>[] };
+  customAsset: string;
 }
 
 export interface Scene {

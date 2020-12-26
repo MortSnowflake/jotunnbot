@@ -1,10 +1,11 @@
 import { Message } from "discord.js";
 import { Storage } from "../discord/storage";
-import { Ability, Asset } from "./asset.model";
+import { Ability, Asset, AssetEnum } from "./asset.model";
 import { Tracker } from "../tracker/tracker.model";
 import { TextChannel } from "discord.js";
 import { toAsset, viewAssetTemplate } from "./asset.utils";
 import { addLoyaltyPoint } from "../lore/lore.utils";
+
 const fs = require("fs");
 
 export const assetCommands: {
@@ -100,4 +101,10 @@ export async function bootstrapAssets(
       );
     });
   }
+
+  const other = assCnlArr[assCnlArr.length - 1];
+  const channelCnl = (await message.guild?.getChannelByName(
+    other
+  )) as TextChannel;
+  channelCnl.sendWithEmoji(storage.local.asset.customAsset);
 }
