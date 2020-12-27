@@ -48,7 +48,7 @@ If somebody wants to help with translation into other languages it would be grea
 
 Perhaps moves, assets and oracles are already publicly available in your language with open cc license, we can use them.
 
-So far we are planning to translate into Spanish, Portuguese and Russian. Any help is welcome :)
+So far we are planning to translate into Russian ([Details](https://github.com/MortSnowflake/jotunnbot/issues/32)), Portuguese and Spanish. Any help is welcome :)
 
 ## Feedback
 
