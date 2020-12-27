@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && node build/index.js",
+    "suttung": "ts-node ./src/suttung/index.ts",
     "build": "rimraf ./build && tsc",
-    "start:dev": "nodemon"
+    "start:dev": "nodemon",
+    "suttung:dev": "nodemon --config ./src/suttung/nodemon.json"
   },
   "keywords": [],
   "author": "",
@@ -22,8 +24,12 @@
     "typescript": "^3.8.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3",
+    "@types/hogan.js": "^3.0.0",
+    "@types/pluralize": "0.0.29",
+    "diff2html-cli": "5.1.6",
+    "nodemon": "2.0.3",
+    "pluralize": "8.0.0",
     "prettier": "2.0.5",
-    "ts-node": "^8.9.1"
+    "ts-node": "8.9.1"
   }
 }

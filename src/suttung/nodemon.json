@@ -1,0 +1,6 @@
+{
+  "watch": ["src/suttung"],
+  "ext": ".ts,.js",
+  "ignore": [],
+  "exec": "npm run suttung -- ru"
+}
