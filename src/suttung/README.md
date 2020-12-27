@@ -56,3 +56,9 @@ dice\moves.ts
 dice\moves-en.ts
 delve\en.ts
 ```
+
+## Run example
+
+```
+npm run suttung --ru
+```
