@@ -27,6 +27,8 @@ The bot's goal is to simplify the game as much as possible in the following styl
 
 **Play Ironsworn**. Although Jottunbot mainly focuses on open table play, you can use it for your daily Ironsworn play with text or voice. Just ignore the open table and language learning homebrews (in the future I will add the ability to disable these homebrews in the bot settings).
 
+**Mobile UX**. Easy to play from your smartphone.
+
 ## The bot can:
 
 - ask the player questions about the character and generate the character sheet based on the result;
