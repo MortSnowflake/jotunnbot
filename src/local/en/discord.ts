@@ -9,6 +9,7 @@ export const discord = {
   playerChannelName: "char-list",
   helperChannelName: "assistant",
   channelsInfo: "phases",
+  languageLearning: "english-learning",
   masterChannelName: "master-journal",
   worldIsChanging: "5-world-is-changing",
 };

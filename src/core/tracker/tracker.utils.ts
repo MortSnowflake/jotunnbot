@@ -1,19 +1,19 @@
 import { MessageEmbed } from "discord.js";
 import { Message, TextChannel } from "discord.js";
 import { Local } from "../../local";
-import { ProgTracker } from "./tracker.model";
+import { ProgTracker, ProgTrackerRank, ProgTrackerType } from "./tracker.model";
 
 export function parseProgTracker(msg: Message, local: Local) {
   const pt = msg.embeds[0];
-  const track = pt
+  const [cur, max] = pt
     .footer!.text!.replace(`${local.progTracker.progress}: `, "")
-    .replace("/10", "")
-    .replace("/3", "");
+    .split("/");
   return new ProgTracker(
     pt.description!,
     local.progTracker.rankParse[pt.title?.split(" ")[0]!],
     pt.color,
-    parseFloat(track)
+    parseFloat(cur),
+    parseFloat(max)
   );
 }
 
@@ -42,4 +42,18 @@ export function embedPt(progTracker: ProgTracker, local: Local) {
     .setFooter(
       `${local.progTracker.progress}: ${progTracker.track.current}/${progTracker.track.max}`
     );
+}
+
+export async function ruleTracker(channel: TextChannel, local: Local) {
+  viewProgTracker(
+    new ProgTracker(
+      local.oracles.languageRules[0],
+      ProgTrackerRank.FORMIDIBLE,
+      ProgTrackerType.RULE,
+      0,
+      local.oracles.languageRules.length - 1
+    ),
+    channel,
+    local
+  ).then((r) => r.message.pin());
 }

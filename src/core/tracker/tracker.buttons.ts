@@ -10,6 +10,7 @@ import { TextChannel } from "discord.js";
 import { CharacterWizardStep } from "../character/character.model";
 import { finishStep } from "../character/character.wizard";
 import { Local } from "../../local";
+import { rollArr } from "../oracles/oracles.utils";
 
 export const progTrackerHandlers: {
   [id: string]: (
@@ -35,6 +36,11 @@ function changeProgTracker(
 ) {
   const pt = parseProgTracker(reaction.message, local);
   f(pt);
+
+  if (pt.type === ProgTrackerType.RULE) {
+    pt.text = local.oracles.languageRules[pt.track.current];
+  }
+
   reaction.message.editWithEmoji(embedPt(pt, local));
 }
 
@@ -126,6 +132,9 @@ async function checkProgress(
         resNum as number,
         "reachYourDestination"
       );
+      break;
+    case ProgTrackerType.RULE:
+      reaction.message.channel.send(rollArr(local.oracles.languageRules));
       break;
     default:
       reaction.message.channel.sendWithEmoji(resString as string);

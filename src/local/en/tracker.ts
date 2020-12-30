@@ -20,6 +20,7 @@ const suffix = {
   [ProgTrackerType.DELVE]: "Site",
   [ProgTrackerType.TRAVEL]: "Travel",
   [ProgTrackerType.DOOM]: "Doom",
+  [ProgTrackerType.RULE]: "Rule",
 };
 
 const rankParse: { [id: string]: ProgTrackerRank } = {
@@ -53,6 +54,12 @@ export const progTrackerCommands: {
       "Parameters: level (1 - Hard, 2 - Dangerous, 3 - Terrible, 4 - Fatal, 5 - Epic), description. \nExample: `.words 2 disobey crawl strike rift`",
     helpText: "",
     aliases: ["words", "word"],
+  },
+  addRuleTracker: {
+    title: "Add rules to learn them",
+    description: "",
+    helpText: "",
+    aliases: ["ruletracker"],
   },
   addJourneyTracker: {
     title: "Add journey tracker",

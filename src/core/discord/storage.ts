@@ -10,14 +10,16 @@ export class Storage {
   private STORAGE_CHANNEL_NAME = "_storage_";
   private guild: Guild;
   private storageChannel: TextChannel;
+  private bot: Client;
 
   public botUser: ClientUser;
   public local: Local;
 
-  constructor(botUser: ClientUser, local: Local, guild: Guild) {
+  constructor(bot: Client, local: Local, guild: Guild) {
     this.local = local;
     this.guild = guild;
-    this.botUser = botUser;
+    this.bot = bot;
+    this.botUser = bot.user!;
 
     this.storageChannel = this.guild.getChannelByName(
       this.STORAGE_CHANNEL_NAME
@@ -25,11 +27,15 @@ export class Storage {
 
     if (!this.storageChannel) {
       this.guild
-        .createPrivateChannel(botUser.id, this.STORAGE_CHANNEL_NAME, local)
+        .createPrivateChannel(this.botUser.id, this.STORAGE_CHANNEL_NAME, local)
         .then((c) => {
           this.storageChannel = c;
         });
     }
+  }
+
+  public getStatistic() {
+    return this.bot.guilds.cache.size;
   }
 
   public renameUserNick(userId: string, name?: string) {

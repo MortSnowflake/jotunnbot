@@ -1,4 +1,6 @@
-import { ICommand, Table } from "../..";
+import { ICommand } from "../..";
+import { Table } from "../..";
+import { languageRules, languageWords } from "./language-tables";
 import tables from "./tables.json";
 
 export const oraclesCommands: {
@@ -16,7 +18,7 @@ export const oraclesCommands: {
     description:
       'Helps to select a random item from the table without adding a new parameter. Items are separated by spaces or ";"',
     helpText: "Example `.table fighter cleric mage thief`",
-    aliases: ["t", "table"],
+    aliases: ["t", "table", "tab", "tbl"],
   },
   logUserTable: {
     title: "Roll from the list in descending order of probability",
@@ -85,6 +87,8 @@ export const oracles = {
     "NPC role",
   ],
   tables: tables as Table[],
+  languageRules,
+  languageWords,
 };
 
 export const oraclesChanelName = [

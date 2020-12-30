@@ -6,9 +6,10 @@
 2. Upload [these emoji](/src/images/emoji/emoji.zip) (`Server Settings` > `Emoji` > click `Upload Emoji` > select all emojis > press `Open`)
 3. Invite the bot to the server ([click here](https://discord.com/api/oauth2/authorize?client_id=729358913279099000&permissions=8&scope=bot))
 4. Move Jötunn Bot to the top of the role list (`Server Settings` > `Roles`) ([example](/src/images/help/roles-list.png))
-5. Open channel: #table
-6. Send `.bootstrap all`
-7. Send `.start`
+5. Optional: If you want to use English language learning feature - create channel #english-learning
+6. Open channel: #table
+7. Send `.bootstrap all`
+8. Send `.start`
 
 ## Installation details
 
@@ -25,7 +26,7 @@ The bot's goal is to simplify the game as much as possible in the following styl
 
 **Learn English**. The game gives bonuses for using words from the player's personal dictionary and for using certain grammar rules in the scene.
 
-**Play Ironsworn**. Although Jottunbot mainly focuses on open table play, you can use it for your daily Ironsworn play with text or voice. Just ignore the open table and language learning homebrews (in the future I will add the ability to disable these homebrews in the bot settings).
+**Play Ironsworn**. Although Jottunbot mainly focuses on open table play, you can use it for your daily Ironsworn play with text or voice. Just ignore the open table and language learning homebrews (to switch off language learning feature don't create a #english-learning channel).
 
 ## The bot can:
 

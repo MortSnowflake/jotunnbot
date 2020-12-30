@@ -8,7 +8,11 @@ import {
   ProgTrackerRank,
   ProgTrackerType,
 } from "../tracker/tracker.model";
-import { viewProgTracker, parseProgTracker } from "../tracker/tracker.utils";
+import {
+  viewProgTracker,
+  parseProgTracker,
+  ruleTracker,
+} from "../tracker/tracker.utils";
 import { helpOne } from "../help/help.commands";
 import { rollArr } from "../oracles/oracles.utils";
 import { bootstrapAssets } from "../asset/asset.commands";
@@ -105,7 +109,7 @@ async function scene(
   let category = message?.guild?.getScenesCathegory(local);
 
   if (category) {
-    const msg = message?.guild?.channels
+    const msg = await message?.guild?.channels
       .create(
         args.join(" ") ||
           `${local.discord.channelPrefix} ${~~(Math.random() * 1000) + 1}`,
@@ -114,28 +118,26 @@ async function scene(
           parent: category,
         }
       )
-      .then((с) =>
-        с.send(
-          local.scene.sceneRules(
-            с.guild!.getChannelsInfo(local)?.toString()!,
-            с.guild!.getChannelByName(local.discord.chronicChannel)?.toString()!
-          )
-        )
-      )
-      .then((m) => m.pin());
+      .then((с) => с.send(local.scene.sceneRules))
+      .then((m) => m.pin())!;
 
-    if (withDoom && msg) {
-      msg.then((m) =>
-        viewProgTracker(
-          new ProgTracker(
-            local.scene.doomPointsTracker,
-            ProgTrackerRank.FORMIDIBLE,
-            ProgTrackerType.DOOM
-          ),
-          m.channel as TextChannel,
-          local
-        ).then((r) => r.message.pin())
-      );
+    if (msg.guild?.isLanguageLearning(storage.local)) {
+      await msg.channel.send(local.scene.languageRule);
+      await ruleTracker(msg.channel as TextChannel, local);
+    }
+
+    if (withDoom) {
+      viewProgTracker(
+        new ProgTracker(
+          local.scene.doomPointsTracker,
+          ProgTrackerRank.FORMIDIBLE,
+          ProgTrackerType.DOOM,
+          0,
+          3
+        ),
+        msg.channel as TextChannel,
+        local
+      ).then((r) => r.message.pin());
     }
 
     addLoyaltyPoint(player, local);

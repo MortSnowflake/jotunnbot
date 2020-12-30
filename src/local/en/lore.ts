@@ -83,13 +83,10 @@ export const scene = {
     "Spend Doom Points on problems for you or allies. Spending Doom Points increases your Luck Points. By the end of the scene, you need to spend all the Doom Points, otherwise they will work at once at the end of the scene.",
   doomPointsDontForget:
     "Doom Points are not spent (or you forgot to mark it). Spend doom points on problems for allies or the whole party, but not for your character personally. At the end of the scene, the remaining Doom Points will go off all at once, worsening the situation.",
-  sceneRules: (phasesChnl: string, chronicChnl: string) => `
-  
-At the beginning of a scene, send a link to some English rule and pin it (e.g.: RULE: <somelink>). If you use this rule during the scene, send \`.rule\` it will give you +1 momentum. Feel free to correct player's English. Use \`*italic*\` *for it*.
-  
-These oracles can help to describe the scene intro: \`.o location questions\`, \`.o location descriptors\`, \`.o location\`.
+  sceneRules: `These oracles can help to describe the scene intro: \`.o location questions\`, \`.o location descriptors\`, \`.o location\`.
 
-Use the \`*italicized*\` message for comments to other players. Such messages are not chronicled. To describe dialogs, use character name e.g."Torgan:" or "me:" at the beginning of the message (the bot will replace "me:" by your char name in ${chronicChnl}).
+Use the \`*italicized*\` message for comments to other players. Such messages are not chronicled. To describe dialogs, use character name e.g."Torgan:" or "me:" at the beginning of the message (the bot will replace "me:" by your char name in #chronicle ).
 
-Use ${phasesChnl} and \`.moves\` to play. Send \`.end\` to end the scene. Send \`.site\` to *Discover a site*.`,
+Use #phases and \`.moves\` to play. Send \`.end\` to end the scene. Send \`.site\` to *Discover a site*.`,
+  languageRule: `At the beginning of a scene, send a link to some English rule and pin it (e.g.: RULE: <somelink>). If you use this rule during the scene, send \`.rule\` it will give you +1 momentum. Feel free to correct player's English. Use \`*italic*\` *for it*. You may chose a rule from rule tracker below, it's ordered by complexity.`,
 };

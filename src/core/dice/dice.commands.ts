@@ -88,6 +88,12 @@ export async function bootstrapRules(
   args: string[],
   storage: Storage
 ) {
+  const rules = storage.local.rules;
+
+  if (!message.guild?.isLanguageLearning(storage.local)) {
+    rules[2].messages.pop();
+  }
+
   for await (const rule of storage.local.rules) {
     const channel = (await message.guild?.getChannelByName(
       rule.channel

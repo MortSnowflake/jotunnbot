@@ -3,6 +3,7 @@ import { CategoryChannel } from "discord.js";
 import { Local } from "../../local";
 import { emojiArr } from "./custom.emoji";
 import { Message } from "discord.js";
+import { Channel } from "discord.js";
 
 declare module "discord.js" {
   export interface Guild {
@@ -25,11 +26,15 @@ declare module "discord.js" {
     getScenesCathegory(local: Local): CategoryChannel;
     getChannelsInfo(local: Local): TextChannel;
     getTestChronicChannel(local: Local): TextChannel;
+    isLanguageLearning(local: Local): boolean;
   }
 
   export interface Channel {
     sendWithEmoji(msg: string | MessageEmbed): Promise<Message>;
-    sendWithChannelAndEmoji(msg: string | MessageEmbed): Promise<Message>;
+    sendWithChannelAndEmoji(
+      msg: string | MessageEmbed,
+      charChannel?: Channel
+    ): Promise<Message>;
     getMessageBunch(limit?: number): Promise<Message[]>;
     customBulkDelete(limit?: number): Promise<void>;
   }
@@ -112,17 +117,28 @@ TextChannel.prototype.sendWithEmoji = function (msg: string | MessageEmbed) {
 };
 
 TextChannel.prototype.sendWithChannelAndEmoji = function (
-  msg: string | MessageEmbed
+  msg: string | MessageEmbed,
+  charChannel?: Channel
 ) {
   if (typeof msg === "string") {
-    const gg = replaceChannels(msg, this.guild);
-    return this.send(replaceEmoji(gg, this.guild));
+    let withCannels = replaceChannels(msg, this.guild);
+    if (charChannel) {
+      withCannels = withCannels.replace("@player-cnl", charChannel.toString());
+    }
+    return this.send(replaceEmoji(withCannels, this.guild));
   }
 
   msg.description = replaceEmoji(
     replaceChannels(msg.description!, this.guild),
     this.guild
   );
+
+  if (charChannel) {
+    msg.description = msg.description!.replace(
+      "@player-cnl",
+      charChannel.toString()
+    );
+  }
 
   return this.send(msg);
 };
@@ -226,6 +242,12 @@ Guild.prototype.getChannelsInfo = function (local: Local) {
   return this.channels.cache.find(
     (c) => c.name == local.discord.channelsInfo
   ) as TextChannel;
+};
+
+Guild.prototype.isLanguageLearning = function (local: Local) {
+  return !!this.channels.cache.find(
+    (c) => c.name == local.discord.languageLearning
+  );
 };
 
 function replaceEmoji(text: string, guild: Guild) {

@@ -78,7 +78,7 @@ export interface Character {
   useRule: string;
   userDeleteError: string;
   userAlreadyExistMsg: (char: CharModel) => string;
-  firstSteps: (playerCnl: string, infoCnl: string) => string;
+  firstSteps: string;
   listEmbed: (char: CharModel) => MessageEmbed;
 }
 
@@ -116,7 +116,8 @@ export interface Scene {
   storyteller: string;
   doomPointsTracker: string;
   doomPointsDontForget: string;
-  sceneRules: (phasesChnl: string, chronicChnl: string) => string;
+  sceneRules: string;
+  languageRule: string;
   endOfSceneAdvice: (sceneName: string) => string;
   worldIsChanging: (wordChangeCnl: string) => string;
 }
@@ -132,6 +133,7 @@ export interface Discord {
   playerChannelName: string;
   helperChannelName: string;
   channelsInfo: string;
+  languageLearning: string;
   masterChannelName: string;
   worldIsChanging: string;
 }
@@ -175,6 +177,8 @@ export interface Oracles {
   charName: string;
   charTypes: string[];
   tables: Table[];
+  languageRules: string[];
+  languageWords: string[];
 }
 
 export interface Delve {

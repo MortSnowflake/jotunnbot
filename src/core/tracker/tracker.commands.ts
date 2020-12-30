@@ -1,10 +1,11 @@
 import { Message } from "discord.js";
 import { Storage } from "../discord/storage";
-import { viewProgTracker } from "./tracker.utils";
+import { ruleTracker, viewProgTracker } from "./tracker.utils";
 import { ProgTracker, progTrackers, ProgTrackerType } from "./tracker.model";
 import { addLoyaltyPoint } from "../lore/lore.utils";
 import { helpOne } from "../help/help.commands";
 import { TextChannel } from "discord.js";
+import { rollArr } from "../oracles/oracles.utils";
 
 export const progTrackerCommands: {
   [id: string]: (message: Message, args: string[], storage: Storage) => void;
@@ -13,6 +14,7 @@ export const progTrackerCommands: {
   addVow,
   addWordTracker,
   addJourneyTracker,
+  addRuleTracker,
 };
 
 async function addProgTracker(
@@ -42,10 +44,9 @@ async function addWordTracker(
   args: string[],
   storage: Storage
 ) {
-  const player = await storage.getPlayer(message.author.id);
   const { local } = storage;
   if (!args.length) {
-    helpOne(local, message.channel as TextChannel, "addWordTracker");
+    message.channel.send(rollArr(local.oracles.languageWords));
     return;
   }
 
@@ -56,6 +57,14 @@ async function addWordTracker(
     local
   ).then((r) => r.message.pin());
   storage.getPlayer(message.author.id).then((p) => addLoyaltyPoint(p, local));
+}
+
+async function addRuleTracker(
+  message: Message,
+  args: string[],
+  storage: Storage
+) {
+  ruleTracker(message.channel as TextChannel, storage.local);
 }
 
 async function addJourneyTracker(

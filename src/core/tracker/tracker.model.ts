@@ -15,6 +15,7 @@ export enum ProgTrackerType {
   TRAVEL = COLORS.AQUA,
   BATTLE = COLORS.RED,
   DOOM = COLORS.DARK_RED,
+  RULE = COLORS.DARK_BLUE,
   CUSTOM = COLORS.DARK_GREY,
 }
 
@@ -33,14 +34,15 @@ export class ProgTracker {
     public text: string,
     public rank = ProgTrackerRank.TROUBLESOME,
     public type = ProgTrackerType.CUSTOM,
-    current?: number
+    current?: number,
+    max?: number
   ) {
     if (current) {
       this.track.current = current;
     }
 
-    if (type === ProgTrackerType.DOOM) {
-      this.track.max = 3;
+    if (max) {
+      this.track.max = max;
     }
   }
 }

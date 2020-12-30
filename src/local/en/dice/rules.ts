@@ -45,10 +45,8 @@ Call options: \`.help\` \`.? \` \`.help \`
       `You can play solo or CoOp. To find CoOp players use #rumors-and-legends 
 
 **1. Use a scene**. To start a story, find a channel from the **SCENES** category or create your own scene by sending something like \`.scene path to wild forest\` - where "path to wild forest"  is  a title of the scene. A scene usually describes one location. To end the scene use the command \`.end\`. After scene completion, the entire narration falls into the #chronic channel without game details (dice roll results, etc.). After completing the scene, don't forget to mark the progress of the vows involved in the scene. 
-  
-At the beginning of a scene, send a link to some English rule and pin it (e.g. RULE: <somelink>). If you use this rule during the scene, send \`.rule\` it will give you +1 momentum. Feel free to correct other player's English. Use \`*italic*\` for it.
-  
-  
+   
+
   
 ~stub~`,
       `**DELVE**
@@ -120,6 +118,9 @@ Purpose: Add words to learn them. Increase progress when you use one of these wo
 Parameters: level (1 - Hard, 2 - Dangerous, 3 - Terrible, 4 - Fatal, 5 - Epic), description. 
 Example: .words 2 disobey crawl strike rift
 \`\`\`
+Most popular english words: https://www.worldclasslearning.com/english/4000-most-common-english-words.html
+
+To see random 10 words from this list send \`.words\`
 `,
     ],
   },

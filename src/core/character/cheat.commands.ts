@@ -1,5 +1,6 @@
 import { Message } from "discord.js";
 import { Storage } from "../discord/storage";
+import { finishStep } from "./character.wizard";
 
 export const cheatCommands: {
   [id: string]: (message: Message, args: string[], storage: Storage) => void;
@@ -7,6 +8,7 @@ export const cheatCommands: {
   addXp,
   cheats,
   getRole,
+  getStatistic,
 };
 
 async function addXp(message: Message, args: string[], storage: Storage) {
@@ -35,13 +37,16 @@ async function getRole(message: Message, args: string[], storage: Storage) {
   const player = await storage.getPlayer(message.author.id);
   try {
     storage.addPlayerRole(player.userId, storage.local);
-    message.channel.send(
-      storage.local.character.firstSteps(
-        player.charChannel.toString(),
-        message.guild?.getChannelsInfo(storage.local).toString()!
-      )
-    );
+    finishStep(message, player, storage);
   } catch {
     message.channel.send(storage.local.help.playerRoleErrorAgain);
   }
+}
+
+async function getStatistic(
+  message: Message,
+  args: string[],
+  storage: Storage
+) {
+  message.channel.send(storage.getStatistic());
 }

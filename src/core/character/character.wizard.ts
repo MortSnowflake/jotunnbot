@@ -131,21 +131,30 @@ export function sendStep(
   channel: Channel,
   storage: Storage
 ) {
-  return (channel as TextChannel).sendWithEmoji(
-    storage.local.character.wizard.find((w: any) => w.step === step)
-      ?.message as string
-  );
+  const msgArr = (storage.local.character.wizard.find(
+    (w: any) => w.step === step
+  )?.message as string)?.split("|");
+
+  const msg =
+    msgArr.length === 1 ||
+    (channel as TextChannel).guild?.isLanguageLearning(storage.local)
+      ? msgArr.join("")
+      : msgArr[1];
+
+  return (channel as TextChannel).sendWithChannelAndEmoji(msg);
 }
 
 export function finishStep(message: Message, player: Player, storage: Storage) {
   player.characterWizardStep = CharacterWizardStep.Done;
   storage.updatePlayer(player);
+
+  const msgArr = storage.local.character.firstSteps.split("|");
+
+  const msg = message.guild?.isLanguageLearning(storage.local)
+    ? msgArr.join("")
+    : msgArr[0] + msgArr[2];
+
   sendStep(player.characterWizardStep, message.channel, storage).then((m) =>
-    m.channel.send(
-      storage.local.character.firstSteps(
-        player.charChannel.toString(),
-        m.guild?.getChannelsInfo(storage.local).toString()!
-      )
-    )
+    m.channel.sendWithChannelAndEmoji(msg, player.charChannel)
   );
 }
