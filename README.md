@@ -28,6 +28,8 @@ The bot's goal is to simplify the game as much as possible in the following styl
 
 **Play Ironsworn**. Although Jottunbot mainly focuses on open table play, you can use it for your daily Ironsworn play with text or voice. Just ignore the open table and language learning homebrews (to switch off language learning feature don't create a #english-learning channel).
 
+**Mobile UX**. Easy to play from your smartphone.
+
 ## The bot can:
 
 - ask the player questions about the character and generate the character sheet based on the result;
@@ -47,7 +49,7 @@ If somebody wants to help with translation into other languages it would be grea
 
 Perhaps moves, assets and oracles are already publicly available in your language with open cc license, we can use them.
 
-So far we are planning to translate into Spanish, Portuguese and Russian. Any help is welcome :)
+So far we are planning to translate into Russian ([Details](https://github.com/MortSnowflake/jotunnbot/issues/32)), Portuguese and Spanish. Any help is welcome :)
 
 ## Feedback
 
