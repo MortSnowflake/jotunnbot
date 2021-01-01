@@ -2,7 +2,7 @@ import { Message } from "discord.js";
 import { Storage } from "../discord/storage";
 import { site, getDomainAndTheme } from "./delve.utils";
 import { TextChannel } from "discord.js";
-import { logRoll, rollArr, lookup } from "../oracles/oracles.utils";
+import { logRoll, rollArr, lookupOld } from "../oracles/oracles.utils";
 import {
   domains,
   themes,
@@ -135,7 +135,7 @@ async function deepInDelve(message: Message, args: string[], storage: Storage) {
     resultMsg += local.delve.deepInDelveOptions;
     addProgress(local, channel);
   } else if (succes === 1) {
-    const point = lookup((deepInDelveTables as any)[attr].results, d(100));
+    const point = lookupOld((deepInDelveTables as any)[attr].results, d(100));
     resultMsg += `${point.value}\n`;
     switch (point.k) {
       case "progressAndDanger":
@@ -166,7 +166,7 @@ async function deepInDelve(message: Message, args: string[], storage: Storage) {
 }
 
 function findOportunity(message: Message, local: Local, inner?: boolean) {
-  const result = `${lookup(findOportunityTable, d(100))}\n${
+  const result = `${lookupOld(findOportunityTable, d(100))}\n${
     local.delve.oportunityOptions
   }`;
 
@@ -193,7 +193,7 @@ function revealDanger(message: Message, local: Local, inner?: boolean) {
   const theme = themes.find(
     (t) => t.title.toLowerCase() === domainAndTheme[0].toLowerCase()
   )!;
-  const result = lookup(
+  const result = lookupOld(
     { ...theme.dangers, ...domain.dangers, ...revealDangerTable },
     d(100)
   );
@@ -231,7 +231,7 @@ function rollSiteFeature(message: Message, args: string[], storage: Storage) {
     (t) => t.title.toLowerCase() === domainAndTheme[0].toLowerCase()
   )!;
   const features = { ...theme.features, ...domain.features };
-  message.channel.send(lookup(features, d(100)));
+  message.channel.send(lookupOld(features, d(100)));
 }
 
 function createRollChat(message: Message, args: string[], storage: Storage) {

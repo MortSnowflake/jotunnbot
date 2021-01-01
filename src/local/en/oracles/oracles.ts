@@ -1,5 +1,6 @@
 import { ICommand } from "../..";
 import { Table } from "../..";
+import { oracleTables, oracleTypes } from "./datasworn";
 import { languageRules, languageWords } from "./language-tables";
 import tables from "./tables.json";
 
@@ -35,19 +36,19 @@ export const oraclesCommands: {
     aliases: ["newo", "neworacle", "new-o", "new-oracle"],
   },
   damage: {
-    title: "Take harm",
+    title: "Endure Harm",
     description: "",
     helpText: "Example `.harm`",
     aliases: ["harm", "damage"],
   },
   stress: {
-    title: "Take stress",
+    title: "Endure Stress",
     description: "",
     helpText: "Example `.stress`",
     aliases: ["stress"],
   },
   price: {
-    title: "Pay price",
+    title: "Pay the price",
     description: "",
     helpText: "Example `.price`",
     aliases: ["price"],
@@ -87,8 +88,10 @@ export const oracles = {
     "NPC role",
   ],
   tables: tables as Table[],
+  oracleTables: oracleTables,
   languageRules,
   languageWords,
+  oracleTypes: oracleTypes,
 };
 
 export const oraclesChanelName = [

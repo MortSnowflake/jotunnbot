@@ -6,6 +6,7 @@ import {
   oracleLookupTable,
   rollArr,
   lookup,
+  lookupOld,
 } from "./oracles.utils";
 import { IReaction } from "..";
 import { d } from "../dice/dice.utils";
@@ -50,6 +51,6 @@ async function rollUserOracle(reaction: IReaction) {
   });
 
   reaction.message.channel.send(
-    lookup(results, d(parseInt(items[items.length - 1].split(":")[0])))
+    lookupOld(results, d(parseInt(items[items.length - 1].split(":")[0])))
   );
 }

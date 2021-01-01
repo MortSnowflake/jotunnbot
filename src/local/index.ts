@@ -177,8 +177,10 @@ export interface Oracles {
   charName: string;
   charTypes: string[];
   tables: Table[];
+  oracleTables: any;
   languageRules: string[];
   languageWords: string[];
+  oracleTypes: any;
 }
 
 export interface Delve {

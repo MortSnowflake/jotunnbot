@@ -3,9 +3,9 @@ import { IMove } from "../..";
 
 const payPrice = `Сhoose one:
 • Make the most obvious negative outcome happen.
-• Describe two negative consequences. Ask yes/no question: determine the probability the first negative consequence (from 1 to 100) and send \`.d100 \`, if the value on the cube is less than the probability, then the first negative consequence appears otherwise - the second one.
+• Envision two negative outcomes. Rate one as "likely", and send \`.ask likely\`. On a ‘yes’, make that outcome happen. Otherwise, make it the other.
 • Send \`.price \`. If you have difficulty interpreting the result to fit the current situation, send it again.
-• Ask another player or master which negative outcome happens`;
+• Ask another player or master which negative outcome happens.`;
 
 export const adventureMoves: IMove[] = [
   {
