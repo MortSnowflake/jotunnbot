@@ -176,7 +176,6 @@ export interface Oracles {
   locationTypes: string[];
   charName: string;
   charTypes: string[];
-  tables: Table[];
   oracleTables: any;
   languageRules: string[];
   languageWords: string[];

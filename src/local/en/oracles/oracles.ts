@@ -2,7 +2,6 @@ import { ICommand } from "../..";
 import { Table } from "../..";
 import { oracleTables, oracleTypes } from "./datasworn";
 import { languageRules, languageWords } from "./language-tables";
-import tables from "./tables.json";
 
 export const oraclesCommands: {
   [id: string]: ICommand;
@@ -87,7 +86,6 @@ export const oracles = {
     "NPC feature",
     "NPC role",
   ],
-  tables: tables as Table[],
   oracleTables: oracleTables,
   languageRules,
   languageWords,
