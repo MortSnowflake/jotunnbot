@@ -285,7 +285,7 @@ Let's create a character for you.
       
 What is your character's name?
 
-Oracle can help you. Send \`.o ironlander names\` or \`.o elf names\` or \`.o other names\` to ask oracle.
+Oracle can help you. Send \`.o ironlander names\` or \`.o elf names\` to ask oracle.
     `,
     },
     {
@@ -305,7 +305,7 @@ This server was created in order to learn the language by playing a role-playing
 
 Back to character creation.  Describe the character in a few sentences 
 
-Oracle can help you. Send \`.o npc descriptors\` or \`.o npc role\` or to ask oracle.
+Oracle can help you. Send \`.o npc descriptor\` or \`.o role\` or to ask oracle.
 `,
     },
     {
@@ -338,7 +338,7 @@ Example. You are haunted by your past, you have vowed to see the defeated clan o
 The name of the clan: "Red Moon". Their shields are adorned with a blood-red circle.
 For now, this vow is a smoldering vow, a promise that has not yet flared up.
 
-Oracle can help you. Send \`.o theme\` or \`.o goals\` to ask oracle.  Also you can use LORE category channels.`,
+Oracle can help you. Send \`.o theme\` or \`.o goal\` to ask oracle.  Also you can use LORE category channels.`,
     },
     {
       step: CharacterWizardStep.ShortVow,
@@ -348,7 +348,7 @@ An engaging situation is a problem that arises at the beginning of a story, prom
 Example. A mysterious illness struck the chieftain of Sinderdom. The village doctor brewed potions, but it didn't help. The priest prayed, but the gods did not listen. The mystic performed divination, but the shadows did not divulge their secrets.
 The leader, your friend, disappeared. Without help, they will definitely die. To help them, you went after the mysterious dragon root, according to rumors it grows in a cave behind the pass. No one goes to that cave because of its denizens...
     
-Oracle can help you. Send \`.o inciting situations\` or \`.o goals\` to ask oracle. Also you can use LORE category channels.`,
+Oracle can help you. Send \`.o inciting situations\` or \`.o action\` to ask oracle. Also you can use LORE category channels.`,
     },
     {
       step: CharacterWizardStep.Assets,

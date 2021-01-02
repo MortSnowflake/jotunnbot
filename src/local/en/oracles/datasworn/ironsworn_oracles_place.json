@@ -518,5 +518,35 @@
       "Chance": 100,
       "Description": "Isolated"
     }
+  ],
+  "Location questions": [
+    {
+      "Chance": 10,
+      "Description": "What is the current position of the characters: calm, risky or extreme?"
+    },
+    {
+      "Chance": 20,
+      "Description": "What objects or colors do the characters see in this location?"
+    },
+    {
+      "Chance": 30,
+      "Description": "What is the 'camera' showing in this location?"
+    },
+    { "Chance": 40, "Description": "What sounds do the characters hear?" },
+    { "Chance": 50, "Description": "What smells do the characters feel?" },
+    {
+      "Chance": 60,
+      "Description": "How do the characters feel in this location?"
+    },
+    {
+      "Chance": 70,
+      "Description": "What is the remarkable detail in this location, or a few common details?"
+    },
+    { "Chance": 80, "Description": "Who is there in this location?" },
+    {
+      "Chance": 90,
+      "Description": "Who influences this location, what do we know about them?"
+    },
+    { "Chance": 100, "Description": "What emotion does the character feel" }
   ]
 }

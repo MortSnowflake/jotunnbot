@@ -31,17 +31,7 @@ export function oracleLookupTable(
 ) {
   const { oracleTables, oracleTypes } = local.oracles;
   if (args.length < 1) {
-    let oracleDescription = "";
-    Object.entries(oracleTypes).forEach(([type, oracles]) => {
-      oracleDescription += `**${type}**: ${Object.entries(
-        oracles as any
-      ).reduce(
-        (result, [title]) => result + title.toLowerCase() + ", ",
-        ""
-      )} \n\n`;
-    });
-
-    channel.send(oracleDescription);
+    channel.send(getOracleList(local.oracles.oracleTypes));
     return;
   }
   const oracleName = args.join(" ").toLowerCase();
@@ -60,19 +50,14 @@ export function lookupTable(
       .map((s) => "`" + s + "`")
       .join(", ");*/
 
-  const helpOutput = errorHelp(
-    local,
-    local.commands.oracleLookupTable.helpText,
-    ["<oracle name>"]
-  );
   const oracle = Object.entries(oracles).find(
     ([k]) => k.toLowerCase() === oracleName.toLowerCase()
   );
   if (!oracle) {
     let output =
       `<@${author.id}> ${local.oracles.oraclelow} \`${oracleName}\` ${local.oracles.notFound}.` +
-      `${oracleNotFoundMsg}`;
-    if (helpOutput) output += `\n${helpOutput}`;
+      `${oracleNotFoundMsg} \n${getOracleList(local.oracles.oracleTypes)}`;
+
     channel.send(output);
     return;
   }
@@ -121,11 +106,6 @@ export function lookupOld(results: { [id: string]: any }, roll: number) {
   return results[key];
 }
 
-function errorHelp(local: Local, cmdKey: string, args?: string[]) {
-  const argsStr = args?.length ? args.join(" ") : "";
-  return `${local.oracles.send} \`.? ${cmdKey}${argsStr}\` ${local.oracles.forHelp}.`;
-}
-
 export function rollArr(arr: string[]) {
   return arr[d(arr.length) - 1];
 }
@@ -150,4 +130,15 @@ function logFunc(arr: any[], chunckSize: number) {
     }
   }
   return [...rezArr, ...arr];
+}
+
+function getOracleList(oracleTypes: any) {
+  let oracleDescription = "";
+  Object.entries(oracleTypes).forEach(([type, oracles]) => {
+    oracleDescription += `**${type}**: ${Object.entries(oracles as any).reduce(
+      (result, [title]) => result + title.toLowerCase() + ", ",
+      ""
+    )} \n\n`;
+  });
+  return oracleDescription;
 }

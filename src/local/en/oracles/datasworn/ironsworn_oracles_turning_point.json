@@ -254,5 +254,57 @@
       "Chance": 100,
       "Description": "Roll twice more on this table. Both results occur. If they are the same result, make it worse."
     }
+  ],
+  "Inciting Situations": [
+    { "Chance": 5, "Description": "Roll again, but the situation is dire." },
+    {
+      "Chance": 16,
+      "Description": "Why are \\_\\_\\_ and \\_\\_\\_ fighting right now?"
+    },
+    {
+      "Chance": 27,
+      "Description": "\\_\\_\\_ enters the scene. How does this complicate things?"
+    },
+    {
+      "Chance": 38,
+      "Description": "What is \\_\\_\\_ coercing \\_\\_\\_ into?"
+    },
+    {
+      "Chance": 46,
+      "Description": "By whom is \\_\\_\\_ being chased, and why?"
+    },
+    {
+      "Chance": 54,
+      "Description": "What perilous situation is \\_\\_\\_ escaping right now?"
+    },
+    {
+      "Chance": 62,
+      "Description": "What awkward social situation is \\_\\_\\_ currently caught in?"
+    },
+    {
+      "Chance": 70,
+      "Description": "What is \\_\\_\\_ here to collect from \\_\\_\\_?"
+    },
+    {
+      "Chance": 75,
+      "Description": "\\_\\_\\_ is dying and \\_\\_\\_ is there. What happened?"
+    },
+    {
+      "Chance": 80,
+      "Description": "What trap has \\_\\_\\_ sprung, and who set it?"
+    },
+    {
+      "Chance": 85,
+      "Description": "To whom is \\_\\_\\_ tearfully or angrily apologizing right now?"
+    },
+    {
+      "Chance": 90,
+      "Description": "\\_\\_\\_ and \\_\\_\\_ are at a standstill. What happened?"
+    },
+    {
+      "Chance": 95,
+      "Description": "What has \\_\\_\\_ done to betray \\_\\_\\_?"
+    },
+    { "Chance": 100, "Description": "Roll twice on this table." }
   ]
 }
