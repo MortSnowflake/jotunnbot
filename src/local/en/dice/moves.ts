@@ -126,18 +126,22 @@ them.`,
     attribute: "supply",
     description: `When you rest and recover for several hours in the wild, send \`.camp\` (it will use your Supply).
 
-Read your assets. If some learned asset skill contains adds suitable to the move send move with the adds e.g. \`.camp 1\``,
-    results: [
-      `On ~miss~~miss~ you can't rest. Pay the Price - ${payPrice}`,
-      `On ~hit~~miss~ you make one choice.
-• Heal: Mark +1 health (send \`.health+\`) for yourself and your companions.
-• Snacks: Mark -1 supply (send \`.supply-\`) and +1 health (send \`.health+\`) for yourself and yours
+    Read your assets. If some learned asset skill contains adds suitable to the move send move with the adds e.g. \`.camp 1\`
+
+Options:    
+• Recuperate: Mark +1 health (send \`.health+\`) for yourself and your companions.
+• Partake: Mark -1 supply (send \`.supply-\`) and +1 health (send \`.health+\`) for yourself and yours
 satellites.
 • Relax: Mark +1 spirit (send \`.spirit+\`).
-• Pull yourself together: mark +1 momentum (send \`.momentum+\`).
-• Get ready: when you leave camp, add +1
-to Travel.`,
-      `On ~hit~~hit~ you and your allies have two choices.`,
+• Focus: yourself together: mark +1 momentum (send \`.momentum+\`).
+• Prepare: When you break camp, add +1 if you *Undertake a Journey*.
+• Pick herbs: send \`.pick\`.
+• Brew potion: send \`.brew <herb>+<herb>\` e.g. \`.brew green mold + wine stone\`.
+`,
+    results: [
+      `On ~miss~~miss~ you can't rest. Pay the Price - ${payPrice}`,
+      `On ~hit~~miss~ choose one from the options above.`,
+      `On ~hit~~hit~ you and your allies may each choose two from the options above.`,
     ],
   },
   {
@@ -466,6 +470,8 @@ export const aftermathMoves: IMove[] = [
     highAttribute: ["health", "iron"],
     description: `When you face physical damage, suffer -health equal to your foe’s rank or as appropriate to the situation (e.g. send \`.health- 2\`).
 If your health is 0, mark the momentum equal to the remaining -health  (e.g. send \`.momentum- 2\`). Then send \`.endure\` (it will use your iron or health whichever is higher).`,
+    intro: `When you face physical damage, suffer -health equal to your foe’s rank or as appropriate to the situation (e.g. send \`.health- 2\`).
+If your health is 0, mark the momentum equal to the remaining -health  (e.g. send \`.momentum- 2\`). The roll uses your iron or health whichever is higher.`,
     results: [
       `On ~miss~~miss~ suffer -1 momentum (send \`.momentum-\`). If yours health 0, mark \`.wounded\` or \`.maimed\` (if not already marked) or send \`.harm \``,
       `On ~hit~~miss~ you press on.`,
@@ -509,10 +515,10 @@ If you roll a miss with a 1 on your action die, and your companion’s health is
   {
     type: "SUFFER MOVES",
     name: "SUSTAIN STRESS",
-    argIsRequired: true,
     aliases: ["sustain"],
     highAttribute: ["spirit", "heart"],
-    description: `When you face mental shock or despair, suffer -spirit equal to your foe’s rank or as appropriate to the situation. If your spirit is 0, suffer -momentum equal to any remaining spirit. (e.g. send \`.momentum- 2\`). Then send \`.sustain\`. The roll uses your spirit or heart whichever is higher`,
+    description: `When you face mental shock or despair, suffer -spirit equal to your foe’s rank or as appropriate to the situation. If your spirit is 0, suffer -momentum equal to any remaining -spirit. (e.g. send \`.momentum- 2\`). Then send \`.sustain\`. The roll uses your spirit or heart whichever is higher`,
+    intro: `When you face mental shock or despair, suffer -spirit equal to your foe’s rank or as appropriate to the situation. If your spirit is 0, suffer -momentum equal to any remaining -spirit. (e.g. send \`.momentum- 2\`). The roll uses your spirit or heart whichever is higher`,
     results: [
       `On ~miss~~miss~ suffer -1 momentum (send \`.momentum-\`). If your spirit is 0, send \`.shaken\` or \`.corrupted\` (if not already checked) or send \`.stress\``,
       `On ~hit~~miss~ you press on.`,
@@ -644,6 +650,28 @@ If the vow was made to a person or community with whom you share a bond, *Test Y
       unlikely: "unlikely",
       small: "small chance",
     },
+  },
+  {
+    type: "FATE MOVES",
+    name: "FLASHBACK",
+    aliases: ["flashback"],
+    argIsRequired: true,
+    description: `When you recall an event in the past that can now change the situation in your favor, describe the memory.
+Identify the attribute that stands out most in this story. If you act...
+• With speed, agility, or precision: send \`.flashback edge\`
+• With charm, loyalty, or courage: send \`.flashback heart\`
+• With aggressive action, forceful defense, strength, or endurance: send \`.flashback iron \`
+• With deception, stealth, or trickery: send \`.flashback shadow\`
+• With expertise, insight, or observation: send \`.flashback wits \`
+
+Read your assets. If some learned asset skill contains adds suitable to the move send move with the adds e.g. \`.flashback wits 1\`
+`,
+    intro: `When you recall an event in the past that can now change the situation in your favor, describe the memory.`,
+    results: [
+      `On ~miss~~miss~ this story ended badly and in no way will help you in the current situation. *Sustain Stress* (send \`.sustain\`)`,
+      `On ~hit~~miss~ it was like that but it was hard. *Sustain Stress* (send \`.sustain\`)`,
+      `On ~hit~~hit~ it is a true story.`,
+    ],
   },
 ];
 

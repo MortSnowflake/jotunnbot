@@ -1,4 +1,5 @@
-import { ICommand } from "../..";
+import { Alchemy, ICommand } from "../..";
+import alchemy from "./alchemy.json";
 
 export const diceCommands: {
   [id: string]: ICommand;
@@ -33,6 +34,18 @@ export const diceCommands: {
     description: "",
     helpText: "",
     aliases: ["d10"],
+  },
+  pickPlants: {
+    title: "Pick plants",
+    description: "",
+    helpText: "",
+    aliases: ["pick"],
+  },
+  mixPotion: {
+    title: "Brew potion",
+    description: "",
+    helpText: "",
+    aliases: ["brew"],
   },
   rollProgressDice: {
     title: "Progress roll",
@@ -77,4 +90,8 @@ export const dice = {
   missToWeak: "Miss become Weak hit ~hit~~miss~.",
   weakToStrong: "Weak hit become Strong hit ~hit~~hit~.",
   payThePrice: "Pay the Price",
+  pickedHerbs: "You have picked the following herbs and substances:",
+  youGet: "You get ",
+  nothing: "nothing",
+  alchemy: alchemy as Alchemy,
 };

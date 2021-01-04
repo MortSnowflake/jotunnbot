@@ -48,6 +48,13 @@ export const progTrackerCommands: {
     helpText: "",
     aliases: ["vow"],
   },
+  addSharedVow: {
+    title: "Add shared vow",
+    description:
+      "Parameters: level (1 - Hard, 2 - Dangerous, 3 - Terrible, 4 - Fatal, 5 - Epic), description. \nExample: `.vow 4 To save the princess`",
+    helpText: "",
+    aliases: ["shared-vow", "shared"],
+  },
   addWordTracker: {
     title: "Add words to learn them",
     description:
@@ -74,7 +81,7 @@ export const progTracker = {
   tracker: "Tracker",
   progress: "Progress",
   abandonMsg:
-    "You renounced your vow. Get stress. If the vow has been made to a person or community with whom you have a bond, Test your bond the next time you meet.",
+    "You renounced your vow. Sustain stress (.send `.stress`). If the vow has been made to a person or community with whom you have a bond, Test your bond the next time you meet.",
   doneMsg: "complete the vow",
   privateDoneMsg: "You complete the vow",
   suffix,

@@ -1,5 +1,4 @@
 import { ICommand } from "../..";
-import { Table } from "../..";
 import { oracleTables, oracleTypes } from "./datasworn";
 import { languageRules, languageWords } from "./language-tables";
 
@@ -67,6 +66,7 @@ export const oracles = {
   send: "Send",
   forHelp: "for help",
   plotName: "plot",
+  advanceThreat: "Advance a Threat Prog",
   plotTypes: ["Difficulty", "Battle", "actions", "Goal", "Themes", "Action"],
   locationName: "location",
   locationTypes: [

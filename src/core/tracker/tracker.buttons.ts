@@ -1,8 +1,8 @@
 import { User, PartialUser } from "discord.js";
 import { ProgTracker, ProgTrackerType, vowXp } from "./tracker.model";
-import { Storage } from "../discord/storage";
+import { Player, Storage } from "../discord/storage";
 import { sub, add } from "./tracker.manager";
-import { rollProgressDice } from "../dice/dice.utils";
+import { d, rollProgressDice } from "../dice/dice.utils";
 import { IReaction } from "..";
 import { embedPt, parseProgTracker } from "./tracker.utils";
 import { MessageEmbed } from "discord.js";
@@ -10,7 +10,8 @@ import { TextChannel } from "discord.js";
 import { CharacterWizardStep } from "../character/character.model";
 import { finishStep } from "../character/character.wizard";
 import { Local } from "../../local";
-import { rollArr } from "../oracles/oracles.utils";
+import { lookup, oracleLookupTable, rollArr } from "../oracles/oracles.utils";
+import { IResult } from "../../local/en/oracles/datasworn";
 
 export const progTrackerHandlers: {
   [id: string]: (
@@ -27,6 +28,7 @@ export const progTrackerHandlers: {
   },
   ptroll: checkProgress,
   ptdel: abandonPt,
+  threat: threatRoll,
 };
 
 function changeProgTracker(
@@ -75,6 +77,7 @@ async function checkProgress(
 
   switch (pt.type) {
     case ProgTrackerType.VOW:
+    case ProgTrackerType.THREAT:
       await progressMove(
         local,
         reaction.message.channel as TextChannel,
@@ -83,21 +86,32 @@ async function checkProgress(
         resNum as number,
         "fulfillYourVow"
       );
-      if (resNum > 0) {
-        player.character.xp += vowXp[pt.rank] - (resNum === 1 ? 1 : 0);
-        storage.updatePlayerAndCharEmbed(player);
-        reaction.message.delete();
-        player.helperChannel.send(
-          `${local.progTracker.privateDoneMsg}. ${local.scene.worldIsChanging(
-            reaction.message.guild
-              ?.getChannelByName(local.discord.worldIsChanging)
-              ?.toString()!
-          )}`
-        );
-        reaction.message?.guild
-          ?.getTableChannel(local)!
-          .send(`<@${player.userId}> ${local.progTracker.doneMsg}: ${pt.text}`);
-      }
+      const players = await getChannelPlayers(
+        reaction.message.channel as TextChannel,
+        storage,
+        user.id
+      );
+      players.forEach((player) => {
+        if (resNum > 0) {
+          player.character.xp += vowXp[pt.rank] - (resNum === 1 ? 1 : 0);
+          storage.updatePlayerAndCharEmbed(player);
+          reaction.message.delete();
+          player.helperChannel.send(
+            `${local.progTracker.privateDoneMsg}. ${local.scene.worldIsChanging(
+              reaction.message.guild
+                ?.getChannelByName(local.discord.worldIsChanging)
+                ?.toString()!
+            )}`
+          );
+          if (players.length === 1) {
+            reaction.message?.guild
+              ?.getTableChannel(local)!
+              .send(
+                `<@${player.userId}> ${local.progTracker.doneMsg}: ${pt.text}`
+              );
+          }
+        }
+      });
       break;
     case ProgTrackerType.DELVE:
       progressMove(
@@ -142,6 +156,25 @@ async function checkProgress(
   }
 }
 
+async function threatRoll(
+  reaction: IReaction,
+  storage: Storage,
+  user: User | PartialUser
+) {
+  const { local } = storage;
+  const o = Object.entries(local.oracles.oracleTables).find(
+    ([o]) => o === local.oracles.advanceThreat
+  )?.[1] as IResult & { Menace: number }[];
+  const result = lookup(o, d(100));
+  if (result.Menace) {
+    const pt = parseProgTracker(reaction.message, local);
+    pt.track.max = pt.track.max - result.Menace * 0.25;
+    reaction.message.editWithEmoji(embedPt(pt, local));
+  }
+
+  reaction.message.channel.sendWithEmoji(result.Description);
+}
+
 async function progressMove(
   local: Local,
   channel: TextChannel,
@@ -167,16 +200,53 @@ async function abandonPt(
   user: User | PartialUser
 ) {
   const pt = parseProgTracker(reaction.message, storage.local);
-  const player = await storage.getPlayer(user.id);
+
+  const players = await getChannelPlayers(
+    reaction.message.channel as TextChannel,
+    storage,
+    user.id
+  );
 
   switch (pt.type) {
     case ProgTrackerType.VOW:
-      player.helperChannel.send(storage.local.progTracker.abandonMsg);
-      sub(player.character.status.spirit, vowXp[pt.rank]);
-      storage.updatePlayer(player);
+    case ProgTrackerType.THREAT:
+      players.forEach((player) => {
+        player.helperChannel.send(storage.local.progTracker.abandonMsg);
+        sub(player.character.status.spirit, vowXp[pt.rank]);
+        storage.updatePlayer(player);
+      });
       reaction.message.delete();
       break;
   }
 
   reaction.message.delete();
+}
+
+async function getChannelPlayers(
+  channel: TextChannel,
+  storage: Storage,
+  userId: string
+) {
+  const author = await storage.getPlayer(userId);
+
+  if (channel.id === author.charChannel.id) {
+    return [author];
+  }
+
+  const players: Player[] = [];
+  const playerIds: string[] = [];
+
+  const messages = (await channel.getMessageBunch()).filter(
+    (m) => m.author !== storage.botUser
+  );
+
+  for await (const m of messages) {
+    const player = await storage.getPlayer(m.author.id);
+
+    if (!playerIds.includes(m.author.id)) {
+      players.push(player);
+      playerIds.push(m.author.id);
+    }
+  }
+  return players;
 }

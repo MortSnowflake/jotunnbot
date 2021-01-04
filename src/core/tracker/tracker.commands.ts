@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import { Storage } from "../discord/storage";
+import { Player, Storage } from "../discord/storage";
 import { ruleTracker, viewProgTracker } from "./tracker.utils";
 import { ProgTracker, progTrackers, ProgTrackerType } from "./tracker.model";
 import { addLoyaltyPoint } from "../lore/lore.utils";
@@ -12,6 +12,7 @@ export const progTrackerCommands: {
 } = {
   addProgTracker,
   addVow,
+  addSharedVow: (m, a, s) => addVow(m, a, s, true),
   addWordTracker,
   addJourneyTracker,
   addRuleTracker,
@@ -88,17 +89,36 @@ async function addJourneyTracker(
   storage.getPlayer(message.author.id).then((p) => addLoyaltyPoint(p, local));
 }
 
-async function addVow(message: Message, args: string[], storage: Storage) {
-  const player = await storage.getPlayer(message.author.id);
+export async function addVow(
+  message: Message,
+  args: string[],
+  storage: Storage,
+  shared = false,
+  p: Player | undefined = undefined
+) {
+  const player = p || (await storage.getPlayer(message.author.id));
   if (!args.length) {
     helpOne(storage.local, player.helperChannel, "addVow");
     return;
   }
 
   const rank = progTrackers[parseInt(args.shift()!) - 1];
+
+  let [description, threat] = args.join(" ").split("|");
+
+  if (threat) {
+    description = `**VOW:** ${description}\n\n**THREAT:** ${threat}`;
+  }
+
   viewProgTracker(
-    new ProgTracker(args.join(" "), rank, ProgTrackerType.VOW),
-    player.charChannel as TextChannel,
+    new ProgTracker(
+      description,
+      rank,
+      threat ? ProgTrackerType.THREAT : ProgTrackerType.VOW
+    ),
+    shared
+      ? (message.channel as TextChannel)
+      : (player.charChannel as TextChannel),
     storage.local
   );
 }

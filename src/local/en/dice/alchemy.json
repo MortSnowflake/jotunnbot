@@ -1,0 +1,38 @@
+{
+  "substances": {
+    "vitriol": ["balisse fruit", "barley", "sewant mushrooms", "wolfsbane"],
+    "rebis": ["celandine", "lunar shards", "wine stone", "allspice root"],
+    "quebrith": ["сhamomile", "scleroderm", "balisse leaves", "ducal water"],
+    "sol": ["white myrtle petals", "fiend’s eye", "verbena", "wolf aloe"],
+    "fulgur": ["specter dust", "nettle", "knapweed", "hellebore petals"],
+    "vermilion": ["mistletoe", "thistle", "mandrake root", "green mold"]
+  },
+  "formulae": {
+    "exploding powder": ["vitriol", "rebis"],
+    "invisible ink": ["rebis", "quebrith"],
+    "hallucinogen": ["quebrith", "sol"],
+    "perfume": ["sol", "fulgur"],
+    "numbing herbs": ["fulgur", "vitriol"],
+    "poisoner’s friend": ["vitriol", "quebrith"],
+    "smelling salts": ["vitriol", "sol"],
+    "sterilizing fluid": ["rebis", "sol"],
+    "succubus’ breath": ["rebis", "fulgur"],
+    "wives’ tears": ["quebrith", "fulgur"],
+    "acid": ["vermilion", "vitriol"],
+    "adhesive": ["vermilion", "rebis"],
+    "black venom": ["vermilion", "quebrith"],
+    "chloroform": ["vermilion", "sol"],
+    "quick fire": ["vermilion", "fulgur"]
+  },
+  "allSubstances": {
+    "vitriol": ["balisse fruit", "barley", "sewant mushrooms", "wolfsbane"],
+    "rebis": ["celandine", "lunar shards", "wine stone", "allspice root"],
+    "aether": ["berbercane fruit", "ginatia petals", "arachas chitin", "pearl"],
+    "quebrith": ["сhamomile", "scleroderm", "balisse leaves", "ducal water"],
+    "hydragenum": ["fool’s parsley", "honeysuckle", "sulfur", "infused dust"],
+    "vermilion": ["mistletoe", "thistle", "mandrake root", "green mold"],
+    "sol": ["white myrtle petals", "fiend’s eye", "verbena", "wolf aloe"],
+    "caelum": ["bryonia", "phosphorus", "venom extract", "dwarven immortelle"],
+    "fulgur": ["specter dust", "nettle", "knapweed", "hellebore petals"]
+  }
+}

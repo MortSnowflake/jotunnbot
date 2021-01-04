@@ -21,11 +21,13 @@ import {
   bootstrapRules,
   createRulesChannels,
 } from "../dice/dice.commands";
+import { addVow } from "../tracker/tracker.commands";
 
 export const loreCommands: {
   [id: string]: (message: Message, args: string[], storage: Storage) => void;
 } = {
   scene,
+  saga: (m, a, s) => scene(m, a, s, false, true),
   doomScene: (m, a, s) => scene(m, a, s, true),
   sceneEnd,
   rerollWithLP,
@@ -97,7 +99,8 @@ async function scene(
   message: Message,
   args: string[],
   storage: Storage,
-  withDoom: boolean = false
+  withDoom = false,
+  sage = false
 ) {
   const { local } = storage;
   const player = await storage.getPlayer(message.author.id);
@@ -105,13 +108,14 @@ async function scene(
     helpOne(local, player.helperChannel, "scene");
     return;
   }
+  const sceneArgs = args.join(" ").split("|");
 
   let category = message?.guild?.getScenesCathegory(local);
 
   if (category) {
     const msg = await message?.guild?.channels
       .create(
-        args.join(" ") ||
+        sceneArgs.shift() ||
           `${local.discord.channelPrefix} ${~~(Math.random() * 1000) + 1}`,
         {
           type: "text",
@@ -124,6 +128,16 @@ async function scene(
     if (msg.guild?.isLanguageLearning(storage.local)) {
       await msg.channel.send(local.scene.languageRule);
       await ruleTracker(msg.channel as TextChannel, local);
+    }
+
+    if (sage) {
+      //send desription
+      //send tracker
+      const newArgs = sceneArgs.join("|").split(" ");
+      newArgs.unshift("3");
+      await msg.channel.send(local.scene.sagaPrompt);
+      await addVow(msg, newArgs, storage, true, player);
+      //TODO auto roll oracle: start position: calm, risky, extreme
     }
 
     if (withDoom) {

@@ -10,6 +10,7 @@ export enum ProgTrackerRank {
 
 export enum ProgTrackerType {
   VOW = COLORS.DARK_ORANGE,
+  THREAT = COLORS.DARK_GOLD,
   WORDS = COLORS.LIGHT_GREY,
   DELVE = COLORS.GREEN,
   TRAVEL = COLORS.AQUA,

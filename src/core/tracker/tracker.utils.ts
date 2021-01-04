@@ -27,7 +27,10 @@ export function viewProgTracker(
     .then((x) => x.reactEmoji("ptdel"))
     .then((x) => x.message.reactEmoji("ptsub"))
     .then((x) => x.message.reactEmoji("ptadd"))
-    .then((x) => x.message.reactEmoji("ptroll"));
+    .then((x) => x.message.reactEmoji("ptroll"))
+    .then((x) =>
+      pt.type === ProgTrackerType.THREAT ? x.message.reactEmoji("threat") : x
+    );
 }
 
 export function embedPt(progTracker: ProgTracker, local: Local) {

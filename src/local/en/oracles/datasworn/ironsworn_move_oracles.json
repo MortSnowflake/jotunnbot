@@ -318,5 +318,21 @@
       "Chance": 100,
       "Description": "The threat makes a dramatic and immediate move, or a major event reveals new complications. Mark menace twice."
     }
+  ],
+  "Advance a Threat Prog": [
+    {
+      "Chance": 30,
+      "Description": "The threat readies its next step, or a new danger looms. If you are in a position to prevent this development, you may attempt to do so. If you succeed, Reach a Milestone (press ~ptadd~ on the vow tracker)."
+    },
+    {
+      "Chance": 70,
+      "Description": "The threat works subtly to advance toward its goal, or the danger escalates. Menace was marked.",
+      "Menace": 1
+    },
+    {
+      "Chance": 100,
+      "Description": "The threat makes a dramatic and immediate move, or a major event reveals new complications. Menace was marked twice.",
+      "Menace": 2
+    }
   ]
 }

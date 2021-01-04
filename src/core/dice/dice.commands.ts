@@ -22,6 +22,8 @@ export const diceCommands: {
   allMoves,
   sendMoveDescriptions: (m, a, s) =>
     sendMoveDescriptions(m.channel as TextChannel, a, s.local),
+  mixPotion,
+  pickPlants,
 };
 
 async function actionRoll(message: Message, args: string[], storage: Storage) {
@@ -171,4 +173,57 @@ function allMoves(message: Message, args: string[], storage: Storage) {
   answer += `\`\n\n${storage.local.relationMoves[0].type}:\n\``;
   storage.local.relationMoves.forEach((m) => (answer += `.${m.aliases[0]}   `));
   message.channel.send(answer + "`");
+}
+
+function mixPotion(message: Message, args: string[], storage: Storage) {
+  const { youGet, nothing, alchemy } = storage.local.dice;
+
+  if (!args?.length) {
+    message.channel.send(youGet + nothing);
+    return;
+  }
+
+  args = args
+    .join(" ")
+    .split("+")
+    .map((s) => s.trim());
+
+  if (args.length !== 2) {
+    message.channel.send(youGet + nothing);
+    return;
+  }
+
+  console.log(args);
+
+  const firstEl = Object.entries(alchemy.substances).find(([name, herbs]) =>
+    herbs.includes(args[0].toLowerCase())
+  )?.[0];
+  const secondEl = Object.entries(alchemy.substances).find(([name, herbs]) =>
+    herbs.includes(args[1].toLowerCase())
+  )?.[0];
+
+  if (!firstEl || !secondEl) {
+    message.channel.send(youGet + nothing);
+    return;
+  }
+
+  const result =
+    Object.entries(alchemy.formulae).find(
+      ([name, recipe]) => recipe.includes(firstEl) && recipe.includes(secondEl)
+    )?.[0] || nothing;
+
+  message.channel.send(youGet + result);
+}
+
+function pickPlants(message: Message, args: string[], storage: Storage) {
+  let herbs = [];
+  for (let index = 0; index < 1 + d(3); index++) {
+    herbs.push(
+      Object.entries(storage.local.dice.alchemy.substances)[d(6) - 1][1][
+        d(4) - 1
+      ].toLowerCase()
+    );
+  }
+
+  message.channel.send(`${storage.local.dice.pickedHerbs} ${herbs.join(", ")}`);
 }

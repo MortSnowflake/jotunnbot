@@ -118,6 +118,7 @@ export interface Scene {
   doomPointsDontForget: string;
   sceneRules: string;
   languageRule: string;
+  sagaPrompt: string;
   endOfSceneAdvice: (sceneName: string) => string;
   worldIsChanging: (wordChangeCnl: string) => string;
 }
@@ -170,6 +171,7 @@ export interface Oracles {
   unsupported: string;
   send: string;
   forHelp: string;
+  advanceThreat: string;
   plotName: string;
   plotTypes: string[];
   locationName: string;
@@ -235,6 +237,15 @@ export interface Dice {
   missToWeak: string;
   weakToStrong: string;
   payThePrice: string;
+  pickedHerbs: string;
+  youGet: string;
+  nothing: string;
+  alchemy: Alchemy;
+}
+
+export interface Alchemy {
+  substances: { [key: string]: string[] };
+  formulae: { [key: string]: string[] };
 }
 
 export interface Local {

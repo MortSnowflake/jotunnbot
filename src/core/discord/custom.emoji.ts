@@ -29,4 +29,6 @@ export const emojiArr = [
   "name",
   "filled",
   "empty",
+  "threat",
+  "rarity",
 ];

@@ -9,6 +9,12 @@ export const loreCommands: {
     helpText: "Example `.scene Raiders attack`",
     aliases: ["scene"],
   },
+  saga: {
+    title: "New saga",
+    description: ".saga <name> | <purpose> | <threat(optional)>",
+    helpText: "Example `.saga through the snow | rescue village headman`",
+    aliases: ["saga"],
+  },
   doomScene: {
     title: "New scene with Doom Points",
     description: ".doom <name>",
@@ -89,4 +95,7 @@ Use the \`*italicized*\` message for comments to other players. Such messages ar
 
 Use #phases and \`.moves\` to play. Send \`.end\` to end the scene. Send \`.site\` to *Discover a site*.`,
   languageRule: `At the beginning of a scene, send a link to some English rule and pin it (e.g.: RULE: <somelink>). If you use this rule during the scene, send \`.rule\` it will give you +1 momentum. Feel free to correct player's English. Use \`*italic*\` *for it*. You may chose a rule from rule tracker below, it's ordered by complexity.`,
+  sagaPrompt: `In the sagas, character cannot die, instead of death, the character receives the mark cursed or broken and can accumulate several oaths, the failure of which already in a regular game (not a saga) will lead to death or other serious consequences.
+
+The saga begins in the thick of things, the stages of preparation are described during the *Flashback* moves(\`.flashback\`)`,
 };
